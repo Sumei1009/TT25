@@ -7,12 +7,12 @@ where rid_number = 'AA00000001';
 
 update bid
 set status = TRUE
-where rid_number = 'AA00000001';
+where rid_number = 'AA00000001'
+and phone_number = 90388714;
 
 
-delete from bid
+update bid
 where rid_number = 'AA00000001'
 and phone_number <> 90388714;
 
 commit;
-
