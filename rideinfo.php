@@ -20,15 +20,15 @@ if (isset($_SESSION["user_id"])) {
 <body>
   <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+          <a class="nav-link active" href="activerides.php">Active Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -51,7 +51,7 @@ if (isset($_SESSION["user_id"])) {
   <?php
     $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
-    $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
+    $result = pg_query($db, "SELECT * FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
         if ($result){
           while ($row = pg_fetch_assoc($result)){
@@ -88,3 +88,4 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Your Rides</span>
 </body>
 </html>
+
