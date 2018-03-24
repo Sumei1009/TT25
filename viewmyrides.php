@@ -85,17 +85,12 @@ if (isset($_SESSION["user_id"])) {
                     </div>
                     <div id='collapse".$i."' class='collapse' aria-labelledby='heading".$i++."' data-parent='#accordion'>
                       <div class='car-body'>
-                        <div class='container bg-waring'>
-                          <div class='row'>
-                            <div class='col-1 text-light'>
-                            </div>
-                            <div class='col-9 text-light'>
-                              <table>
-                                <tr>
-                                  <th>FROM</th>
-                                  <th>".$row2["origin"]."</th>
-                                <tr>
-                              </table>
+                        <div class='container'>
+                          <div class='row bg-waring'>
+                            <div class='col-1 text-light'></div>
+                            <div class='col-9'>
+                              <div class='col-1 text-light'>CAR ID:</div>
+                              <div class='col-8'>".$row2["car_id"]."</div>
                             </div>
                           </div>
                         </div>
