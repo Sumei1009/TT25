@@ -20,15 +20,15 @@ if (isset($_SESSION["user_id"])) {
 <body>
   <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+          <a class="nav-link active" href="activerides.php">Active Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -49,9 +49,9 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
-    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
-    $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
+    $result = pg_query($db, "SELECT * FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
         if ($result){
           while ($row = pg_fetch_assoc($result)){
@@ -69,8 +69,8 @@ if (isset($_SESSION["user_id"])) {
   <?php
     // Connect to the database. Please change the password in the following line accordingly
     $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
-    $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate WHERE passenger_id =" .$user_id ." ORDER BY date_of_generation LIMIT 5;");   // Query template
-    if (pg_num_rows($result)!=0){
+    $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate ORDER BY date_of_generation LIMIT 5;");   // Query template
+    if ($result) {
     // output data of each row
       echo "<table class='table'><thead><tr>
       <th scope='col'>Date of Ride</th>
@@ -84,27 +84,8 @@ if (isset($_SESSION["user_id"])) {
       echo "</tbody></table>";
     }
   ?>
-
   <span class="d-block p-2 bg-primary text-white">Your Bids</span>
-  <?php
-    // Connect to the database. Please change the password in the following line accordingly
-    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
-    $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate WHERE passenger_id =" .$user_id ." ORDER BY date_of_generation LIMIT 5;");   // Query template
-    if (pg_num_rows($result)!=0){
-    // output data of each row
-      echo "<table class='table'><thead><tr>
-      <th scope='col'>Date of Ride</th>
-      <th scope='col'>Time of Ride</th>
-      <th scope='col'>Origin</th>
-      <th scope='col'>Destination</th>
-      </tr></thead><tbody>";
-      while($row = pg_fetch_assoc($result)) {
-        echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td></tr>";
-      }
-      echo "</tbody></table>";
-    }
-  ?>
-  
   <span class="d-block p-2 bg-primary text-white">Your Rides</span>
 </body>
 </html>
+
