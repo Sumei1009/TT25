@@ -9,45 +9,36 @@ password VARCHAR(20) NOT NULL,
 rating NUMERIC
 );
 
-INSERT INTO appuser VALUES (
-	90388714,
-	'Sumei',
-	'Su',
-	'F',
-	'asfsadg',
-	null
-);
-
 CREATE TABLE car(
-car_id VARCHAR(10) PRIMARY KEY,
-car_brand VARCHAR(10) NOT NULL,
-car_model VARCHAR(15),
-phone_number INTEGER REFERENCES appuser(phone_number)
+	car_id VARCHAR(10) PRIMARY KEY,
+	car_brand VARCHAR(10) NOT NULL,
+	car_model VARCHAR(15),
+	phone_number INTEGER REFERENCES appuser(phone_number)
 );
 
 CREATE TABLE ride_generate(
-rid_number VARCHAR(10) PRIMARY KEY,
-car_id VARCHAR(10) REFERENCES car(car_id),
-passenger_id INTEGER REFERENCES appuser(phone_number),
-date_of_generation DATE,
-date_of_ride DATE,
-time_of_ride TIME,
-num_of_seats INTEGER,
-origin VARCHAR(100),
-destination VARCHAR(100),
-lowest_bid_point NUMERIC
+	rid_number VARCHAR(10) PRIMARY KEY,
+	car_id VARCHAR(10) REFERENCES car(car_id),
+	passenger_id INTEGER REFERENCES appuser(phone_number),
+	date_of_generation DATE,
+	date_of_ride DATE,
+	time_of_ride TIME,
+	num_of_seats INTEGER,
+	origin VARCHAR(100),
+	destination VARCHAR(100),
+	lowest_bid_point NUMERIC
 );
 
 
 CREATE TABLE bid(
-phone_number INTEGER REFERENCES appuser(phone_number),
-rid_number VARCHAR(10) REFERENCES ride_generate(rid_number),
-status BOOLEAN,
-point INTEGER,
-PRIMARY KEY (phone_number,rid_number)
+	phone_number INTEGER REFERENCES appuser(phone_number),
+	rid_number VARCHAR(10) REFERENCES ride_generate(rid_number),
+	status BOOLEAN,
+	point INTEGER,
+	PRIMARY KEY (phone_number,rid_number)
 );
 
-
+INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','asfsadg',null);
 INSERT INTO appuser VALUES (90388914,'Thomas','Smith', 'M', 'asfsdffsadf', 4.5);
 INSERT INTO appuser VALUES (60378918,'Gabriel','Johnson', 'M', 'asfsdffsadf', null);
 INSERT INTO appuser VALUES (30588916,'Adrian','Chan', 'M', 'asfsdffsadf', 4.8);
