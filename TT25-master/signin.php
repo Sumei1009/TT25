@@ -1,6 +1,5 @@
 <?php
 // Start the session
-session_destroy();
 session_start();
 ?>
 <!DOCTYPE html>  
@@ -23,7 +22,7 @@ session_start();
   <?php
     if (isset($_POST['login'])) {
   	// Connect to the database. Please change the password in the following line accordingly
-      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");	
+      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
       $result = pg_query($db, "SELECT * FROM appuser WHERE phone_number='" .$_POST[phone]. "' AND password='" .$_POST[password]. "';");		// Query template
       $row    = pg_fetch_assoc($result);		// To store the result row
 

@@ -10,15 +10,16 @@ rating NUMERIC
 );
 
 CREATE TABLE car(
-	car_id VARCHAR(10) PRIMARY KEY,
+	car_id VARCHAR(10) NOT NULL,
 	car_brand VARCHAR(10) NOT NULL,
 	car_model VARCHAR(15),
-	phone_number INTEGER REFERENCES appuser(phone_number)
+	phone_number INTEGER REFERENCES appuser(phone_number),
+	PRIMARY KEY (phone_number)
 );
 
 CREATE TABLE ride_generate(
 	rid_number VARCHAR(10) PRIMARY KEY,
-	car_id VARCHAR(10) REFERENCES car(car_id),
+	rider_id INTEGER REFERENCES car(phone_number),
 	passenger_id INTEGER REFERENCES appuser(phone_number),
 	date_of_generation DATE,
 	date_of_ride DATE,
@@ -26,16 +27,20 @@ CREATE TABLE ride_generate(
 	num_of_seats INTEGER,
 	origin VARCHAR(100),
 	destination VARCHAR(100),
-	lowest_bid_point NUMERIC
+	lowest_bid_point NUMERIC,
+	UNIQUE (rid_number, rider_id)
 );
 
 
 CREATE TABLE bid(
 	phone_number INTEGER REFERENCES appuser(phone_number),
-	rid_number VARCHAR(10) REFERENCES ride_generate(rid_number),
+	rid_number VARCHAR(10),
+	rider_id INTEGER,
+	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id),
 	status BOOLEAN,
 	point INTEGER,
-	PRIMARY KEY (phone_number,rid_number)
+	PRIMARY KEY (phone_number,rid_number),
+	CHECK (phone_number <> rider_id)
 );
 
 INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','asfsadg',null);
@@ -105,40 +110,42 @@ INSERT INTO car VALUES ('SDZ9393Y', 'Toyota', null,  90434536);
 INSERT INTO car VALUES ('ST74G', 'Toyota', null,  32543636);
 INSERT INTO car VALUES ('SKG1111P', 'Toyota', null,  23674583);
 
-INSERT INTO ride_generate VALUES ('AA00000001', 'SFK60Y', null, 
+INSERT INTO ride_generate VALUES ('AA00000001', 90388714, null, 
 	'2018-02-01', '2018-03-01', '09:00:00', 2, 'Kent Ridge', 'Somerset', 0);
-INSERT INTO ride_generate VALUES ('AA00000002', 'SFK60Y', null, 
+INSERT INTO ride_generate VALUES ('AA00000002', 90388714, null, 
 	'2018-02-01', '2018-03-02', '09:00:00', 2, 'Kent Ridge', 'Somerset', 0);
-INSERT INTO ride_generate VALUES ('AA00000003', 'SDX2222P', null, 
+INSERT INTO ride_generate VALUES ('AA00000003', 90298914, null, 
 	'2018-02-01', '2018-03-03', '09:00:00', 2, 'Kent Ridge', 'Somerset', 0);
-INSERT INTO ride_generate VALUES ('AA00000004', 'SLW96K', null, 
+INSERT INTO ride_generate VALUES ('AA00000004', 90344914, null, 
 	'2018-02-01', '2018-03-01', '10:00:00', 3, 'Bugis', 'Tampines', 0);
-INSERT INTO ride_generate VALUES ('AA00000005', 'SKQ6P', null, 
+INSERT INTO ride_generate VALUES ('AA00000005', 90388992, null, 
 	'2018-02-01', '2018-03-02', '10:00:00', 3, 'Bugis', 'Tampines', 0);
-INSERT INTO ride_generate VALUES ('AA00000006', 'SKQ6P', null, 
+INSERT INTO ride_generate VALUES ('AA00000006', 90388992, null, 
 	'2018-02-01', '2018-03-03', '10:00:00', 3, 'Bugis', 'Tampines', 0);
-INSERT INTO ride_generate VALUES ('AA00000007', 'SLS900K', null, 
+INSERT INTO ride_generate VALUES ('AA00000007', 90388901, null, 
 	'2018-02-01', '2018-03-01', '09:00:00', 2, 'Harbourfront', 'Newton', 0);
-INSERT INTO ride_generate VALUES ('AA00000008', 'SDZ9393Y', null, 
+INSERT INTO ride_generate VALUES ('AA00000008', 90388901, null, 
 	'2018-02-01', '2018-03-02', '09:00:00', 2, 'Harbourfront', 'Newton', 0);
-INSERT INTO ride_generate VALUES ('AA00000009', 'SLS900K', null, 
+INSERT INTO ride_generate VALUES ('AA00000009', 90388901, null, 
 	'2018-02-01', '2018-03-03', '09:00:00', 2, 'Harbourfront', 'Newton', 0);
-INSERT INTO ride_generate VALUES ('AA00000010', 'SFB14D', null, 
+INSERT INTO ride_generate VALUES ('AA00000010', 46784343, null, 
 	'2018-02-01', '2018-03-01', '10:00:00', 3, 'Changi Airport', 'Woodlands', 0);
-INSERT INTO ride_generate VALUES ('AA00000011', 'SDX2222P', null, 
+INSERT INTO ride_generate VALUES ('AA00000011', 46784343, null, 
 	'2018-02-01', '2018-03-02', '10:00:00', 3, 'Changi Airport', 'Woodlands', 0);
-INSERT INTO ride_generate VALUES ('AA00000012', 'SFB14D', null, 
+INSERT INTO ride_generate VALUES ('AA00000012', 46784343, null, 
 	'2018-02-01', '2018-03-03', '10:00:00', 3, 'Changi Airport', 'Woodlands', 0);
-INSERT INTO ride_generate VALUES ('AA00000013', 'SDZ9393Y', null, 
+INSERT INTO ride_generate VALUES ('AA00000013', 90434536, null, 
 	'2018-02-01', '2018-03-01', '09:00:00', 2, 'Promenade', 'Beauty World', 0);
-INSERT INTO ride_generate VALUES ('AA00000014', 'SFB14D', null, 
+INSERT INTO ride_generate VALUES ('AA00000014', 60378918, null, 
 	'2018-02-01', '2018-03-02', '09:00:00', 2, 'Promenade', 'Beauty World', 0);
-INSERT INTO ride_generate VALUES ('AA00000015', 'SLW96K', null, 
+INSERT INTO ride_generate VALUES ('AA00000015', 90344914, null, 
 	'2018-02-01', '2018-03-03', '09:00:00', 2, 'Promenade', 'Beauty World', 0);
 
 
-INSERT INTO bid VALUES (90388714, 'AA00000001', FALSE, 500);
-INSERT INTO bid VALUES (90388714, 'AA00000002', FALSE, 300);
-INSERT INTO bid VALUES (90388714, 'AA00000003', FALSE, 100);
-INSERT INTO bid VALUES (60378918, 'AA00000001', FALSE, 600);
-INSERT INTO bid VALUES (30588916, 'AA00000001', FALSE, 700);
+INSERT INTO bid VALUES (90388714, 'AA00000004', 90344914, null, 100);
+INSERT INTO bid VALUES (90388714, 'AA00000005', 90388992, null, 300);
+INSERT INTO bid VALUES (90388714, 'AA00000003', 90298914, null, 500);
+INSERT INTO bid VALUES (60378918, 'AA00000003', 90298914, null, 600);
+INSERT INTO bid VALUES (30588916, 'AA00000003', 90298914, null, 700);
+INSERT INTO bid VALUES (30588916, 'AA00000001', 90388714, null, 400);
+INSERT INTO bid VALUES (60378918, 'AA00000001', 90388714, null, 200);
