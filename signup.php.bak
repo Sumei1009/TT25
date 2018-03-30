@@ -28,8 +28,8 @@
   <?php
     // include 'global.php';
   	// Connect to the database. Please change the password in the following line accordingly
-    $dbpassword = "wthanw";
-    $user = "qchenxm";
+    $dbpassword = "postgres";
+    $user = "postgres";
     $port = 5432;
     $dbname = "Team25";
 

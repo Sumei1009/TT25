@@ -24,7 +24,7 @@
 	<button onclick="location.href='userprofile.php'">Go Back</button>
 
 	<?php 
-	$db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+	$db = pg_connect("host=localhost port=5555 dbname=Team25 user=postgres password=237273");
 
 	$result = pg_query($db, "INSERT INTO car VALUES('$_POST[car_id]'. '$_POST[car_brand]', '$_POST[car_model]',   '1111111')");
 
