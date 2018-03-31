@@ -46,7 +46,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchrides.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="carprofile.php">Car Information</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>

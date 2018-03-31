@@ -54,41 +54,83 @@ if (isset($_SESSION["user_id"])) {
     </div>
     </nav>
 
-	<span class="d-block p-2 bg-primary text-white">Car Registration</span>
+	<span class="d-block p-2 bg-primary text-white">Generate a new ride!</span>
 
 
 	<div class="container">
-		<form name="display" class="bd-example" method="POST">
-		<fieldset>
-			<legend > Cars Registration</legend>
-			<p>
-				<label class="carlabel" for="input">Car Id:</label>
-				<input type="text" name="car_id" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Brand:</label>
-				<input type="text" name="car_brand" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Model:</label>
-				<input type="text" name="car_model" /></li>
-			</p>
-			<p>
-				<input type="submit" name="submit" /> 
-			</p>
-		</fieldset>
+  <?php
+    $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+    $result = pg_query($db, "SELECT * FROM car WHERE phone_number = $user_id ");
+    $row = pg_fetch_assoc($result);
 
-	</form>
+    if (!$row){
+      echo "You need to register a car first\n";
+      echo "<button onclick=\"location.href='regiscar.php'\">Register</button>";
+    }else{
+      echo "
+      <form name=\"display\" class=\"bd-example\" method=\"POST\">
+        <fieldset>
+          <legend > Please fill in your ride information</legend>
+          <p>
+            <label class=\"carlabel\" for=\"input\">Origin:</label>
+            <input type=\"text\" name=\"origin\" /></li>
+          </p>
+          <p>
+            <label class=\"carlabel\" for=\"input\">Destination:</label>
+            <input type=\"text\" name=\"destination\" /></li>
+          </p>
+          <p>
+            <label class=\"carlabel\" for=\"input\">Number of Seat:</label>
+            <input type=\"text\" name=\"seat\" /></li>     
+          </p>
+          <p>
+            <label class=\"carlabel\" for=\"input\">Date of ride:</label>
+            <input type=\"text\" name=\"date\" /></li>
+          </p>
+          <p>
+            <label class=\"carlabel\" for=\"input\">Time of ride:</label>
+            <input type=\"text\" name=\"time\" /></li>
+          </p>
 
-  <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+          <p>
+            <input type=\"submit\" name=\"submit\" /> 
+          </p>
+        </fieldset>
+      </form>
+        ";
+    }
 
-  
+   ?>
+
+		
+		
+
+	</div>
 
 
 
-  if (isset($_POST['submit'])) {
-        $result = pg_query($db, "INSERT INTO car VALUES('$_POST[car_id]', '$_POST[car_brand]', '$_POST[car_model]',   '$user_id')");
+
+	<?php 
+
+  function generateRandomString($length = 10) {
+    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+  }
+
+  $rid_number = generateRandomString();
+  $zerovalue = 0;
+  $currentdate = date("Y-m-d");
+
+  echo  $currentdate;
+
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+
+	if (isset($_POST['submit'])) {
+        echo $_POST[time];
+        echo $_POST[seat];
+        echo $_POST[date];
+        echo $_POST[origin];
+        echo $_POST[destination];
+        $result = pg_query($db, "INSERT INTO ride_generate VALUES('$rid_number', '$user_id', null,   '$currentdate', '$_POST[date]' , '$_POST[time]', '$_POST[seat]' , '$_POST[origin]' , '$_POST[destination]' , 0  )" );
         if (!$result) {
             echo "Update failed!!";
         } else {
@@ -96,13 +138,7 @@ if (isset($_SESSION["user_id"])) {
         }
     }
 
-  ?>
-
-	<button onclick="location.href='carprofile.php'">Go Back</button>
-		
-	</div>
-
-	
+	?>
 
 </body>
 </html>
