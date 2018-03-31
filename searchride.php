@@ -84,9 +84,6 @@ if (isset($_SESSION["user_id"])) {
 				$result1 = pg_query($db, "UPDATE bid SET point = ".$_POST[new_bid]."
 				WHERE rid_number = '".$_POST[rid_number]."'
 				AND phone_number =" .$user_id. ";"); 
-				if (!$result1){
-					$result2=pg_query($db,"INSERT INTO bid VALUES (".$user_id.",'".$row['Y']."',".$row['U'].","",".$_POST[new_bid].")");
-					}
 				echo "<meta http-equiv='refresh' content='0'>";
 				}
 			echo "</tbody></table>";

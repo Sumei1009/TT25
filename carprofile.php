@@ -9,7 +9,6 @@ if (isset($_SESSION["user_id"])) {
 ?>
 
 <!DOCTYPE html>
-<html>
 <head>
   <title>Index</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -54,60 +53,47 @@ if (isset($_SESSION["user_id"])) {
     </div>
     </nav>
 
-	<span class="d-block p-2 bg-primary text-white">Car Registration</span>
 
 
-	<div class="container">
-		<form name="display" class="bd-example" method="POST">
-		<fieldset>
-			<legend > Cars Registration</legend>
-			<p>
-				<label class="carlabel" for="input">Car Id:</label>
-				<input type="text" name="car_id" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Brand:</label>
-				<input type="text" name="car_brand" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Model:</label>
-				<input type="text" name="car_model" /></li>
-			</p>
-			<p>
-				<input type="submit" name="submit" /> 
-			</p>
-		</fieldset>
+	<span class="d-block p-2 bg-primary text-white">Car Profile</span>
 
-	</form>
 
-  <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
-<<<<<<< HEAD
 	<?php 
-	$db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
-=======
-  
->>>>>>> 5e39c8b3745d09a1ac6ad86830d59a0da0351325
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+
+	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = $user_id  ");
+
+	$row = pg_fetch_assoc($result);
+
+	if (!$row){
+		echo "You haven't registered a car yet! \n";
+		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
+
+	}else{
+    echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
+		echo $row["car_id"];
+		echo $row["car_brand"]; 
+		echo $row["car_model"];
 
 
-
-  if (isset($_POST['submit'])) {
-        $result = pg_query($db, "INSERT INTO car VALUES('$_POST[car_id]', '$_POST[car_brand]', '$_POST[car_model]',   '$user_id')");
-        if (!$result) {
-            echo "Update failed!!";
-        } else {
-            echo "Update successful!";
-        }
-    }
-
-  ?>
-
-	<button onclick="location.href='carprofile.php'">Go Back</button>
 		
-	</div>
+
+
+	}
+
+	?>
+
+
+
+
+
+
 
 	
+
+
+
 
 </body>
 </html>
