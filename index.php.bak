@@ -28,7 +28,9 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
+<<<<<<< HEAD
           <a class="nav-link" href="activerides.php">Active Rides</a>
+=======
             <a class="nav-link" href="index.php">My Profile</a>
           </li>
           <li class="nav-item">
@@ -36,6 +38,7 @@ if (isset($_SESSION["user_id"])) {
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
+>>>>>>> b8f4d6e3c696da4ab485f536b694c542da9861f7
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -56,7 +59,11 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
+<<<<<<< HEAD
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+=======
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
+>>>>>>> b8f4d6e3c696da4ab485f536b694c542da9861f7
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
@@ -94,8 +101,13 @@ if (isset($_SESSION["user_id"])) {
 
   <span class="d-block p-2 bg-primary text-white">Your Bids</span>
   <?php
+<<<<<<< HEAD
     // Connect to the database. Please change the password in the following line accordingly
+
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+=======
+    // Connect to the database. Please change the password in the following line accordingly 
+>>>>>>> b8f4d6e3c696da4ab485f536b694c542da9861f7
     $result = pg_query($db, "select phone_number, rid_number, date_of_ride, time_of_ride,origin, destination, point, (SELECT max(point) from bid where rid_number = b.rid_number) as max_bid,(SELECT count(*) from bid where rid_number = b.rid_number) as num_bidders from bid b NATURAL JOIN ride_generate where phone_number = " .$user_id.";");   // Query template
     if (pg_num_rows($result)!=0){
     // output data of each row

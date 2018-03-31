@@ -65,7 +65,7 @@ if (isset($_SESSION["user_id"])) {
   <div class="container">
     <h2 class="d-block p-2 bg-light text-warning" style="margin-bottom: 0;">My Rides:</h2>
     <?php
-      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
+      $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
       $result = pg_query($db, "SELECT * FROM car WHERE phone_number = '{$user_id}';");
       if (!$result){
         echo "Invalid query";

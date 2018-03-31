@@ -81,8 +81,14 @@ if (isset($_SESSION["user_id"])) {
 	</form>
 
   <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
+<<<<<<< HEAD
+	<?php 
+	$db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+=======
+  
+>>>>>>> 5e39c8b3745d09a1ac6ad86830d59a0da0351325
 
 
 

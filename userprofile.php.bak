@@ -10,7 +10,7 @@
 
 
 	<?php 
-	$db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+	$db = pg_connect("host=localhost port=5555 dbname=Team25 user=postgres password=237273");
 
 	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = '9038899211'  ");
 
