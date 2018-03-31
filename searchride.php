@@ -1,3 +1,13 @@
+<?php
+// Start the session
+session_start();
+if (isset($_SESSION["user_id"])) {
+    $user_id = $_SESSION["user_id"];
+} else {
+    header("Location: ./signin.php");
+    exit;
+}
+?>
 <!DOCTYPE html>  
 <head>
   <title>Search ride</title>
@@ -27,15 +37,19 @@
   	// Connect to the database. Please change the password in the following line accordingly
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");	
 	if (!($_POST['destination'])&&!($_POST['origin'])&&!($_POST['date'])){
-		$result=pg_query($db, "SELECT * FROM ride_generate NATURAL JOIN car");
+		$result=pg_query($db, "SELECT date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number Y,K.rider_id U,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
+		FROM (ride_generate R INNER JOIN car C ON (R.rider_id=C.phone_number)) K LEFT OUTER JOIN bid B ON K.rid_number=B.rid_number
+		GROUP BY date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number");
 		}
 	elseif (!(($_POST['destination'])&&($_POST['origin'])&&($_POST['date']))){
 		//do nothing
 		}
 	else{
-		$result = pg_query($db, "SELECT * FROM ride_generate NATURAL JOIN car WHERE date_of_ride='$_POST[date]' AND origin='$_POST[origin]' AND destination='$_POST[destination]'");
+		$result = pg_query($db, "SELECT date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number Y,K.rider_id U,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
+		FROM  (ride_generate R INNER JOIN car C ON (R.rider_id=C.phone_number)) K LEFT OUTER JOIN bid B ON K.rid_number=B.rid_number
+		WHERE date_of_ride='$_POST[date]' AND origin='$_POST[origin]' AND destination='$_POST[destination]'
+		GROUP BY date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number");
 		}
-	
 	if (isset($_POST['submit'])) {
 		if (!$result&&!(($_POST['destination'])&&($_POST['origin'])&&($_POST['date']))){
 			echo 'incomplete information';
@@ -51,10 +65,30 @@
 			<th scope='col'>Destination</th>
 			<th scope='col'>Car Brand</th>
 			<th scope='col'>Car Model</th>
+			<th scope='col'>Number of Bidders</th>
+			<th scope='col'>Your Bid</th>
+			<th scope='col'>Highest Bid</th>
+			<th scope='col'>New Bid</th>
 			</tr></thead><tbody>";
 			while ($row=pg_fetch_assoc($result)){
-				echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>"  .$row["car_brand"]. "</td><td>"  .$row["car_model"]. "</td> </tr>";
+				echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>"  .$row["car_brand"]. "</td><td>"  .$row["car_model"].  "</td><td>"  .$row["num_bidders"].  "</td><td>"  .$row["point"].  "</td><td>"  .$row["max_bid"].
+				"</td><td> 
+				<form name='".$row[rid_number]."' method=\"POST\" >
+				<input type=\"text\" name=\"new_bid\" />
+				<input type=\"submit\" name='bid' value=\"Bid\">
+				<input type=\"hidden\" name=\"rid_number\" value='".$row[rid_number]."'/>
+				</form>
+				</td></tr>";
 			}
+			if (isset($_POST['bid'])) {
+				$result1 = pg_query($db, "UPDATE bid SET point = ".$_POST[new_bid]."
+				WHERE rid_number = '".$_POST[rid_number]."'
+				AND phone_number =" .$user_id. ";"); 
+				if (!$result1){
+					$result2=pg_query($db,"INSERT INTO bid VALUES (".$user_id.",'".$row['Y']."',".$row['U'].","",".$_POST[new_bid].")");
+					}
+				echo "<meta http-equiv='refresh' content='0'>";
+				}
 			echo "</tbody></table>";
 		}
 	}

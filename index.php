@@ -88,8 +88,10 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Your Bids</span>
   <?php
     // Connect to the database. Please change the password in the following line accordingly
+
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
     $result = pg_query($db, "select date_of_ride, time_of_ride,origin, destination, point, (SELECT max(point) from bid where rid_number = b.rid_number) as max_bid from bid b NATURAL JOIN ride_generate where phone_number = " .$user_id.";");   // Query template
+
     if (pg_num_rows($result)!=0){
     // output data of each row
       echo "<table class='table'><thead><tr>
@@ -97,11 +99,25 @@ if (isset($_SESSION["user_id"])) {
       <th scope='col'>Time of Ride</th>
       <th scope='col'>Origin</th>
       <th scope='col'>Destination</th>
+      <th scope='col'>Number of Bidders</th>
       <th scope='col'>Your Bid</th>
       <th scope='col'>Highest Bid</th>
+      <th scope='col'>New Bid</th>
       </tr></thead><tbody>";
       while($row = pg_fetch_assoc($result)) {
-        echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>" .$row["point"]."</td><td>" .$row["max_bid"]."</td></tr>";
+        echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>" .$row["num_bidders"]."</td><td>" .$row["point"]."</td><td>" .$row["max_bid"]."</td><td>
+        <form name='".$row[rid_number]."' method=\"POST\" >
+        <input type=\"text\" name=\"new_bid\" />
+        <input type=\"submit\" name='bid' value=\"Bid\">
+        <input type=\"hidden\" name=\"rid_number\" value='".$row[rid_number]."'/>
+        </form>
+        </td></tr>";
+      }
+      if (isset($_POST['bid'])) {
+          $result1 = pg_query($db, "UPDATE bid SET point = ".$_POST[new_bid]."
+          WHERE rid_number = '".$_POST[rid_number]."'
+          AND phone_number =" .$user_id. ";"); 
+          echo "<meta http-equiv='refresh' content='0'>";
       }
       echo "</tbody></table>";
     }
