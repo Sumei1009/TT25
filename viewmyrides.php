@@ -177,7 +177,7 @@ if (isset($_SESSION["user_id"])) {
                                             <form method='POST' name='select_form".$k++."'>
                                             <input type='hidden' name='phone_number' value='".$row3["phone_number"]."'/>
                                             <input type='hidden' name='rid_number' value='".$row3["rid_number"]."'/>
-                                            <input type='submit' name='submit' value='Select'/>
+                                            <input type='submit' class='btn btn-outline-primary' style='padding: .1rem .75rem;' name='submit' value='Select'/>
                                             </form>
                                           </td>
                                         </tr>
