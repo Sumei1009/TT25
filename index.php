@@ -29,6 +29,13 @@ if (isset($_SESSION["user_id"])) {
         </li>
         <li class="nav-item">
           <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="index.php">My Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">My Car</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -88,7 +95,6 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Your Bids</span>
   <?php
     // Connect to the database. Please change the password in the following line accordingly
-
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
     $result = pg_query($db, "select phone_number, rid_number, date_of_ride, time_of_ride,origin, destination, point, (SELECT max(point) from bid where rid_number = b.rid_number) as max_bid,(SELECT count(*) from bid where rid_number = b.rid_number) as num_bidders from bid b NATURAL JOIN ride_generate where phone_number = " .$user_id.";");   // Query template
     if (pg_num_rows($result)!=0){
