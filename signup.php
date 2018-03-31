@@ -31,7 +31,7 @@
     $dbpassword = "wthanw";
     $user = "qchenxm";
     $port = 5432;
-    $dbname = "Team25";
+    $dbname = "project1";
 
     $db     = pg_connect("host=localhost port=$port dbname=$dbname user=$user password=$dbpassword");
     // $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
