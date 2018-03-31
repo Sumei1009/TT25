@@ -75,7 +75,6 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Recent Rides</span>
   <?php
     // Recently generated rides by drivers
-    $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
     $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate ORDER BY date_of_generation LIMIT 5;");   // Query template
     if (pg_num_rows($result)!=0){
     // output data of each row
@@ -95,7 +94,7 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Your Bids</span>
   <?php
     // Connect to the database. Please change the password in the following line accordingly
-    $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+
     $result = pg_query($db, "select phone_number, rid_number, date_of_ride, time_of_ride,origin, destination, point, (SELECT max(point) from bid where rid_number = b.rid_number) as max_bid,(SELECT count(*) from bid where rid_number = b.rid_number) as num_bidders from bid b NATURAL JOIN ride_generate where phone_number = " .$user_id.";");   // Query template
     if (pg_num_rows($result)!=0){
     // output data of each row
@@ -131,7 +130,6 @@ if (isset($_SESSION["user_id"])) {
 
   <?php
     // Connect to the database. Please change the password in the following line accordingly
-    $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
     $result = pg_query($db, "select date_of_ride, time_of_ride,origin, destination, 
 (SELECT count(*) from bid where rid_number = R.rid_number) as num_of_bidders 
 from ride_generate R

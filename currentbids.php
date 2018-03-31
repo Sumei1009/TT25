@@ -65,10 +65,16 @@ if (isset($_SESSION["user_id"])) {
           while ($row = pg_fetch_assoc($result)) {
             $rid = $row["rid_number"];
             $ride = pg_query($db, "SELECT * FROM ride_generate R, car C WHERE R.rid_number = '{$rid}' AND C.phone_number = R.rider_id;");
+            $count = pg_query($db, "SELECT count(*) as count, max(point) as max FROM ride_generate R, bid B WHERE R.rid_number = '{$rid}' AND R.rid_number = B.rid_number GROUP BY R.rid_number;");
             if (!$ride) {
               echo "Invalid query";
             } else {
               $row2 = pg_fetch_assoc($ride);
+            }
+            if (!$count) {
+              echo "Invalid query??";
+            } else {
+              $row3 = pg_fetch_assoc($count);
             }
             echo "
                 <div class='card'>
@@ -88,7 +94,7 @@ if (isset($_SESSION["user_id"])) {
                   <div class='car-body'>
                     <div class='container'>
                       <div class='row bg-waring'>
-                        <div class='col-7'>
+                        <div class='col-6'>
                           <table class='table table-hover table-responsive'>
                             <tr>
                               <th style='text-align: left; width:125px;'>Car ID: </th>
@@ -128,21 +134,24 @@ if (isset($_SESSION["user_id"])) {
                             </tr>
                           </table>
                         </div>
-                        <div class='col-5'>
-                          <br/>
+                        <div class='col-6'>
                           <br/>
                           <br/>
                           <table>
                             <tr>
-                              <th>Your current Bids: </th>
-                              <td style='width: 280px; text-align: center;'>".$row["point"]."</td>
+                              <th>No. bidders</th>
+                              <th>Highest Bids</th>
+                              <th>Your current Bids </th>
+                              <th>New Bids</th>
                             </tr>
                             <tr>
-                              <th>Update your Bids: </th>
-                              <td style='width: 280px;'>
+                              <td>".$row3["count"]."</td>
+                              <td>".$row3["max"]."</td>
+                              <td>".$row["point"]."</td>
+                              <td>
                                 <form name='update bidding points".$i++."' method='POST'>
                                   <div class='row'>
-                                    <div class='col-8' style='padding-left:40px;'><input type='text' name='new_bid'/></div>
+                                    <div class='col-8'><input type='text' style='width: 130px;' name='new_bid'/></div>
                                     <div class='col-4'><input type='submit' class='btn btn-outline-primary' name='bid' style='padding: .1rem .75rem;' value='Bid'></div>
                                     <input type='hidden' name='rid_number' value='".$row["rid_number"]."'/>
                                   </div>

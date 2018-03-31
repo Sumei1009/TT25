@@ -196,7 +196,7 @@ if (isset($_SESSION["user_id"])) {
                                           <td>".$row3['status']."</td>
                                           <td>
                                             <form method='POST' name='select_form".$j++."'>
-                                            <input disabled type='submit' name='submit' value='Select'/>
+                                            <input disabled class='btn btn-outline-primary' style='padding: .1rem .75rem;' type='submit' name='submit' value='Select'/>
                                             </form>
                                           </td>
                                         </tr>
