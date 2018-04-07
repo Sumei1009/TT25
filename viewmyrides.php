@@ -18,17 +18,9 @@ if (isset($_SESSION["user_id"])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- <script>
-    function logout() {
-      console.log("Logout!!!!!");
-      $_SESSION = [];
-      session_destroy();
-      window.location = "http://localhost:8080/cs2102/signin.php";
-    };
-  </script>  -->
   <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
@@ -36,11 +28,8 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php">My Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">My Car</a>
-        </li>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
+          </li>
         <li class="nav-item">
           <a class="nav-link active" href="viewmyrides.php">My Rides</a>
         </li>
@@ -51,10 +40,10 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="carprofile.php">Car Information</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -145,7 +134,7 @@ if (isset($_SESSION["user_id"])) {
                             </div>
                             <div class='col-6'>";
                                 $rid = $row2["rid_number"];
-                                $bid = pg_query($db, "SELECT * FROM bid B, appuser A WHERE rid_number = '{$rid}' AND A.phone_number = B.phone_number ORDER BY point desc;");
+                                $bid = pg_query($db, "SELECT A.phone_number, first_name, last_name, (case when B.status is null then 'Pending' when B.status then 'Successful' else 'Failed' end) as status, rid_number, point FROM bid B, appuser A WHERE rid_number = '{$rid}' AND A.phone_number = B.phone_number ORDER BY point desc;");
                                 if (!$bid) {
                                   echo "Opps! Something Wrong! Try to refresh!";
                                 } else if (pg_num_rows($bid) == 0) {

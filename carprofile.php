@@ -26,10 +26,13 @@ if (isset($_SESSION["user_id"])) {
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -38,20 +41,17 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link active" href="carprofile.php">Car Information</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
         </li>
       </ul>
     </div>
-    </nav>
+  </nav>
 
 
 
@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"])) {
 
 
 	<?php 
-	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
 
 	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = $user_id  ");
 
@@ -71,15 +71,42 @@ if (isset($_SESSION["user_id"])) {
 		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
 
 	}else{
+<<<<<<< HEAD
     echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
 		echo $row["car_id"];
 		echo $row["car_brand"]; 
 		echo $row["car_model"];
 
 
+=======
+    echo "<div class='container'>
+          <form>
+          <fieldset>
+          <legend>This is your car infromation:</legend>
+          <p>Car ID: ".$row["car_id"]."</p><br>
+          <p>Brand: ".$row["car_brand"]."</p><br>
+          <p>Model: ".$row["car_model"]."</p>
+          </fieldset>
+        </form>";
+  //   echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
+  //   echo
+
+
+  //   echo "<table class='table'><thead><tr>
+  //     <th scope='col'>Car Id</th>
+  //     <th scope='col'>Brand</th>
+  //     <th scope='col'>Model</th>
+  //     </tr></thead><tbody>";
+		// echo "<tr><td>".. "</td>";
+		// echo "<td>".$row["car_brand"]."</td>";
+		// echo "<td>".$row["car_model"]."</td></tr>";
+  //   echo "</tbody></table>";
+    echo "<form action='updatecar.php'><input type='submit' value='Update Information' /></form>";
+    echo "</div>";
+>>>>>>> 7d64ec9188095a1678905186315d3ed506cd509d
 	}
 
-	?>
+?>
 
 </body>
 </html>

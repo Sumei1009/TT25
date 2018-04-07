@@ -28,7 +28,8 @@ CREATE TABLE ride_generate(
 	origin VARCHAR(100),
 	destination VARCHAR(100),
 	lowest_bid_point NUMERIC,
-	UNIQUE (rid_number, rider_id)
+	UNIQUE (rid_number, rider_id),
+	UNIQUE (date_of_ride, time_of_ride, rider_id)
 );
 
 CREATE TABLE bid(

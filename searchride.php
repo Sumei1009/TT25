@@ -23,6 +23,39 @@ if (isset($_SESSION["user_id"])) {
 
 </head>
 <body>
+	<nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarToggler">
+	      <ul class="navbar-nav">
+	        <li class="nav-item">
+	          <a class="nav-link" href="index.php">Home</a>
+	        </li>
+	        <li class="nav-item">
+	            <a class="nav-link" href="myprofile.php">My Profile</a>
+	          </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="viewmyrides.php">My Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="currentbids.php">Current Bids</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="generaterides.php">Generate Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link active" href="searchride.php">Search Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="carprofile.php">Car Information</a>          
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="signin.php">Logout</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </nav>
   <h2>Search ride</h2>
    <ul>
     <form name="display" action="searchride.php" method="POST" >

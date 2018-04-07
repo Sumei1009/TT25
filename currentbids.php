@@ -20,7 +20,7 @@ if (isset($_SESSION["user_id"])) {
   <body>
     <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav">
@@ -28,11 +28,8 @@ if (isset($_SESSION["user_id"])) {
             <a class="nav-link" href="index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.php">My Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">My Car</a>
-          </li>
+              <a class="nav-link" href="myprofile.php">My Profile</a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" href="viewmyrides.php">My Rides</a>
           </li>
@@ -43,10 +40,10 @@ if (isset($_SESSION["user_id"])) {
             <a class="nav-link" href="generaterides.php">Generate Rides</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="searchrides.php">Search Rides</a>
+            <a class="nav-link" href="searchride.php">Search Rides</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="searchrides.php">Search Rides</a>
+            <a class="nav-link" href="carprofile.php">Car Information</a>          
           </li>
           <li class="nav-item">
             <a class="nav-link" href="signin.php">Logout</a>

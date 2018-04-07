@@ -27,22 +27,22 @@ if (isset($_SESSION["user_id"])) {
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="generaterides.php">Generate Rides</a>
+          <a class="nav-link active" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="carprofile.php">Car Information</a>          
@@ -52,7 +52,7 @@ if (isset($_SESSION["user_id"])) {
         </li>
       </ul>
     </div>
-    </nav>
+  </nav>
 
 	<span class="d-block p-2 bg-primary text-white">Generate a new ride!</span>
 
