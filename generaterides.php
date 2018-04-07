@@ -11,7 +11,7 @@ if (isset($_SESSION["user_id"])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Index</title>
+  <title>Generate Rides</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/style.css">

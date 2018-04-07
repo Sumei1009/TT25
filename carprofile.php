@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 
 <!DOCTYPE html>
 <head>
-  <title>Index</title>
+  <title>Car Profile</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/style.css">
@@ -77,23 +77,9 @@ if (isset($_SESSION["user_id"])) {
 		echo $row["car_model"];
 
 
-		
-
-
 	}
 
 	?>
-
-
-
-
-
-
-
-	
-
-
-
 
 </body>
 </html>

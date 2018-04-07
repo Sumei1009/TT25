@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Index</title>
+  <title>View My Rides</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -65,7 +65,7 @@ if (isset($_SESSION["user_id"])) {
   <div class="container">
     <h2 class="d-block p-2 bg-light text-warning" style="margin-bottom: 0;">My Rides:</h2>
     <?php
-      $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
       $result = pg_query($db, "SELECT * FROM car WHERE phone_number = '{$user_id}';");
       if (!$result){
         echo "Invalid query";

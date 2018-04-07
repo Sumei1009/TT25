@@ -35,7 +35,7 @@ if (isset($_SESSION["user_id"])) {
 <?php
 	if($_POST['car_id']&&$_POST['car_brand']&&$_POST['car_model']){
 		// Connect to the database. Please change the password in the following line accordingly
-	    $db  = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");	
+	    $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
 		$result = pg_query($db, "UPDATE car SET car_id='$_POST[car_id]',car_model='$_POST[car_model]',car_brand='$_POST[car_brand]' WHERE phone_number='$user_id'");
 		if (isset($_POST['submit'])){
 				if ($result){

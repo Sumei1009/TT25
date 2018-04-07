@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Index</title>
+  <title>Home</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -28,12 +28,14 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="myprofile.php">My Profile</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="activerides.php">Active Rides</a>
-            <a class="nav-link" href="index.php">My Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">My Car</a>
-          </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="index.php">My Car</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
@@ -56,7 +58,7 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
-    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     

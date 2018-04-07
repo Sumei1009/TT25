@@ -11,7 +11,7 @@ if (isset($_SESSION["user_id"])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Index</title>
+  <title>Register Car</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/style.css">
@@ -81,7 +81,7 @@ if (isset($_SESSION["user_id"])) {
 	</form>
 
   <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
 
 

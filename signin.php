@@ -5,7 +5,7 @@ session_start();
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Sign up</title>
+  <title>Sign In</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style>li {list-style: none;}</style>
 </head>
@@ -23,7 +23,7 @@ session_start();
   <?php
     if (isset($_POST['login'])) {
   	// Connect to the database. Please change the password in the following line accordingly
-      $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");	
+      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
       $result = pg_query($db, "SELECT * FROM appuser WHERE phone_number='" .$_POST[phone]. "' AND password='" .$_POST[password]. "';");		// Query template
       $row    = pg_fetch_assoc($result);		// To store the result row
 
