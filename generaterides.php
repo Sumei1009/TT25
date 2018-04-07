@@ -54,6 +54,7 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
 
+  <div class="container">
 	<span class="d-block p-2 bg-primary text-white">Generate a new ride!</span>
 
 
@@ -139,6 +140,6 @@ if (isset($_SESSION["user_id"])) {
     }
 
 	?>
-
+</div>
 </body>
 </html>

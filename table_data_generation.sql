@@ -65,6 +65,17 @@ CREATE OR REPLACE FUNCTION UpdateBid (new_point integer, curr_rid VARCHAR(10), c
 	LANGUAGE 'plpgsql' VOLATILE
 	COST 100;
 
+CREATE OR REPLACE FUNCTION deletecar (user_id INTEGER)
+	RETURNS void AS
+	$BODY$
+		BEGIN
+		DELETE FROM bid WHERE rider_id = user_id;
+		DELETE FROM ride_generate WHERE rider_id = user_id;
+		DELETE FROM car WHERE phone_number = user_id;
+		END;
+	$BODY$
+	LANGUAGE 'plpgsql' VOLATILE;
+
 INSERT INTO appuser VALUES (99999999,'Mark','Zuckerberg','M','facebook001', TRUE);
 INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','11111111',FALSE);
 INSERT INTO appuser VALUES (90388914,'Thomas','Smith', 'M', 'asfsdffsadf', FALSE);

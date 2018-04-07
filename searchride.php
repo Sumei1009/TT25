@@ -56,12 +56,12 @@ if (isset($_SESSION["user_id"])) {
 	      </ul>
 	    </div>
 	  </nav>
+	  <div class="container">
   <h2>Search ride</h2>
    <ul>
     <form name="display" action="searchride.php" method="POST" >
-	<li> Date: Origin:  Destination: </li>
-	<li><input type="date" name="date" />       <input type="text" name="origin" />    
-	<input type="text" name="destination" />  <input class="btn btn-outline-primary" type="submit" name="submit" value="search"></li>
+	<li><label style="padding-right: 10px;">Date</label><input placeholder="date" type="date" name="date" />       <input placeholder="origin" type="text" name="origin" />    
+	<input type="text" placeholder="destination" name="destination" />  <input class="btn btn-outline-primary" type="submit" name="submit" value="search"></li>
 	</form>
    </ul>
 
@@ -124,7 +124,7 @@ if (isset($_SESSION["user_id"])) {
 		}
 	}
     ?>  
-
+</div>
 
 </body>
 </html>

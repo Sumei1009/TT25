@@ -53,6 +53,8 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
 
+  <div class="container">
+
 	<span class="d-block p-2 bg-primary text-white">Car Profile</span>
 
 
@@ -60,7 +62,7 @@ if (isset($_SESSION["user_id"])) {
 	<?php 
 	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
-	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = $user_id  ");
+	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = $user_id");
 
 	$row = pg_fetch_assoc($result);
 
@@ -84,7 +86,7 @@ if (isset($_SESSION["user_id"])) {
     echo "</div></div>";
 	}
   if (isset($_POST['delete'])) {
-    $result2 = pg_query($db, "BEGIN; DELETE FROM bid WHERE rider_id = '$user_id'; DELETE FROM ride_generate WHERE rider_id = '$user_id'; DELETE FROM car WHERE phone_number = '$user_id'; COMMIT;");
+    $result2 = pg_query($db, "SELECT * FROM deletecar($user_id)");
     if (!$result2) {
       echo "<p class='text-danger'>Delete Car Failed!</p>";
     } else {
@@ -92,6 +94,6 @@ if (isset($_SESSION["user_id"])) {
     }
   }
 ?>
-
+</div>
 </body>
 </html>

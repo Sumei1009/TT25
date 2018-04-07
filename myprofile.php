@@ -54,7 +54,7 @@ if (isset($_SESSION["user_id"])) {
     </nav>
 
 
-
+  <div class="container">
 	<span class="d-block p-2 bg-primary text-white">User Profile</span>
 
 
@@ -84,6 +84,6 @@ if (isset($_SESSION["user_id"])) {
 	}
 
 ?>
-
+</div>
 </body>
 </html>

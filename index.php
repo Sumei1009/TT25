@@ -51,6 +51,7 @@ if (isset($_SESSION["user_id"])) {
       </ul>
     </div>
   </nav>
+  <div class="container">
   <?php
     $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
@@ -65,7 +66,6 @@ if (isset($_SESSION["user_id"])) {
         }
     
   ?>
-
 
   <span class="d-block p-2 bg-primary text-white">Recent Rides</span>
   <?php
@@ -143,9 +143,10 @@ ORDER BY (date_of_ride, time_of_ride);");   // Query template
       }
       echo "</tbody></table>";
     }
-    
   ?>
-
+  <br/>
+  <br/>
+</div>
 
 </body>
 </html>
