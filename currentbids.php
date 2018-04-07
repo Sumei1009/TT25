@@ -146,7 +146,7 @@ if (isset($_SESSION["user_id"])) {
                               <td>".$row3["max"]."</td>
                               <td>".$row["point"]."</td>
                               <td>
-                                <form name='update bidding points".$i++."' method='POST'>
+                                <form name='update bidding points".$i."' method='POST'>
                                   <div class='row'>
                                     <div class='col-8'><input type='text' style='width: 130px;' name='new_bid'/></div>
                                     <div class='col-4'><input type='submit' class='btn btn-outline-primary' name='bid' style='padding: .1rem .75rem;' value='Bid'></div>
@@ -156,6 +156,12 @@ if (isset($_SESSION["user_id"])) {
                               </td>
                             </tr>
                           </table>
+                        </div>
+                        <div style='padding-left:20px;padding-bottom:20px;'>
+                          <form method='POST' name='delete_form".$i++."'>
+                            <input type='hidden' name='rid2' value='".$row["rid_number"]."'/>
+                            <input class='btn btn-danger' style='padding: .1rem .75rem;' type='submit' name='delete' value='Delete this Bid'/>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -171,7 +177,11 @@ if (isset($_SESSION["user_id"])) {
           WHERE rid_number = '".$_POST[rid_number]."'
           AND phone_number =" .$user_id. ";"); 
           echo "<meta http-equiv='refresh' content='0'>";
-      }
+        }
+        if (isset($_POST['delete'])) {
+          $result1 = pg_query($db, "DELETE FROM bid WHERE rid_number = '".$_POST['rid2']."'AND phone_number =" .$user_id. ";"); 
+          echo "<meta http-equiv='refresh' content='0'>";
+        }
       ?>
     </div>
   </body>

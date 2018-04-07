@@ -78,8 +78,10 @@ if (isset($_SESSION["user_id"])) {
           <p>Model: ".$row["car_model"]."</p>
           </fieldset>
         </form>";
-    echo "<form action='updatecar.php'><input type='submit' class='btn btn-outline-primary' value='Update Information' /></form>";
-    echo "</div>";
+    echo "<div class='row'>";
+    echo "<div class='col-2'><form action='updatecar.php'><input type='submit' class='btn btn-outline-primary' value='Update Information' /></form></div>";
+    echo "<div class='col-2'><form method='POST' name='delete_car'><input type='submit' class='btn btn-outline-danger' value='Delete My Car' name='delete'/></form></div>";
+    echo "</div></div>";
 	}
 ?>
 

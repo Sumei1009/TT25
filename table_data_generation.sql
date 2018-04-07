@@ -59,7 +59,7 @@ CREATE OR REPLACE FUNCTION UpdateBid (new_point integer, curr_rid VARCHAR(10), c
 	COST 100;
 
 INSERT INTO appuser VALUES (99999999,'Mark','Zuckerberg','M','facebook001', TRUE);
-INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','asfsadg',FALSE);
+INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','11111111',FALSE);
 INSERT INTO appuser VALUES (90388914,'Thomas','Smith', 'M', 'asfsdffsadf', FALSE);
 INSERT INTO appuser VALUES (60378918,'Gabriel','Johnson', 'M', 'asfsdffsadf', FALSE);
 INSERT INTO appuser VALUES (30588916,'Adrian','Chan', 'M', 'asfsdffsadf', FALSE);

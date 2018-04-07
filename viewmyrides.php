@@ -74,6 +74,7 @@ if (isset($_SESSION["user_id"])) {
                 $i = 1;
                 echo "<div class='bg-light' id='accordion'>";
                 while ($row2 = pg_fetch_assoc($result2)) {
+                  $rid = $row2["rid_number"];
                   echo "
                     <div class='card'>
                       <div class='card-header' style='padding:0.4rem 0.5rem;' id='heading".$i."'>
@@ -88,7 +89,7 @@ if (isset($_SESSION["user_id"])) {
                         "
                       </div>
                     </div>
-                    <div id='collapse".$i."' class='collapse' aria-labelledby='heading".$i++."' data-parent='#accordion'>
+                    <div id='collapse".$i."' class='collapse' aria-labelledby='heading".$i."' data-parent='#accordion'>
                       <div class='car-body'>
                         <div class='container'>
                           <div class='row bg-waring'>
@@ -133,7 +134,6 @@ if (isset($_SESSION["user_id"])) {
                               </table>
                             </div>
                             <div class='col-6'>";
-                                $rid = $row2["rid_number"];
                                 $bid = pg_query($db, "SELECT A.phone_number, first_name, last_name, (case when B.status is null then 'Pending' when B.status then 'Successful' else 'Failed' end) as status, rid_number, point FROM bid B, appuser A WHERE rid_number = '{$rid}' AND A.phone_number = B.phone_number ORDER BY point desc;");
                                 if (!$bid) {
                                   echo "Opps! Something Wrong! Try to refresh!";
@@ -157,7 +157,7 @@ if (isset($_SESSION["user_id"])) {
                                     while ($row3 = pg_fetch_assoc($bid)) {
                                       echo"
                                         <tr>
-                                          <td>".$i."</td>
+                                          <td>".$k."</td>
                                           <td>".$row3['phone_number']."</td>
                                           <td style='text-align: center;'>".$row3['first_name']."<span> </span>".$row3['last_name']."</td>
                                           <td style='text-align: center;'>".$row3['point']."</td>
@@ -194,7 +194,13 @@ if (isset($_SESSION["user_id"])) {
                                     echo "</table>";
                                   }
                                 }
-                              echo "
+                            echo "
+                            </div>
+                            <div style='padding-left:20px;padding-bottom:20px;'>
+                              <form method='POST' name='delete_form".$i++."'>
+                                <input type='hidden' name='rid2' value='".$rid."'/>
+                                <input class='btn btn-danger' style='padding: .1rem .75rem;' type='submit' name='delete' value='Delete this Ride'/>
+                              </form>
                             </div>
                           </div>
                         </div>
@@ -214,6 +220,16 @@ if (isset($_SESSION["user_id"])) {
           $result5 = pg_query($db, "UPDATE bid set status = FALSE where rid_number = '{$rid}' and phone_number <> {$phone};");
           $result6 = pg_query($db, "UPDATE ride_generate set passenger_id = '{$phone}' where rid_number = '{$rid}'; COMMIT;");
           echo "<meta http-equiv='refresh' content='0'>";
+        }
+        if (isset($_POST['delete'])) {
+          $rid2 = $_POST['rid2'];
+          $result7 = pg_query($db, "BEGIN; DELETE FROM bid WHERE rid_number = '{$rid2}';");
+          $result8 = pg_query($db, "DELETE FROM ride_generate WHERE rid_number = '{$rid2}'; COMMIT;");
+          if (!$result7 || !$result8) {
+            echo "<p class='text-danger'>Delete Failed!</p>";
+          } else if ($result7 && $result8) {
+            echo "<meta http-equiv='refresh' content='0'>";
+          }
         }
       }
     ?>

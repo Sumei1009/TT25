@@ -12,17 +12,20 @@ session_start();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container col-4" style="margin-top: 40px;">
     <h2>Sign In</h2>
-    <ul>
       <form name="display" action="signin.php" method="POST" >
-        <li>Phone Number: </li>
-        <li><input type="text" name="phone" /></li>
-        <li>Password:</li>
-        <li><input type="password" name="password" /></li>
-        <li><input type="submit" name="login" /></li>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input class="form-control" type="text" name="phone" placeholder="Phone Number" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" type="password" name="password" placeholder="Password"/>
+        </div>
+        <input class='btn btn-outline-primary' type="submit" name="login" />
       </form>
-    </ul>
+      <br/>
     <a href="signup.php">Don't have a account? Sign up here!</a>
   </div>
   <?php
