@@ -68,7 +68,7 @@ if (isset($_SESSION["user_id"])) {
 		echo "You haven't registered a car yet! \n";
 		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
 
-	}else{
+	} else {
     echo "<div class='container'>
           <form>
           <fieldset>
@@ -80,9 +80,17 @@ if (isset($_SESSION["user_id"])) {
         </form>";
     echo "<div class='row'>";
     echo "<div class='col-2'><form action='updatecar.php'><input type='submit' class='btn btn-outline-primary' value='Update Information' /></form></div>";
-    echo "<div class='col-2'><form method='POST' name='delete_car'><input type='submit' class='btn btn-outline-danger' value='Delete My Car' name='delete'/></form></div>";
+    echo "<div class='col-6'><form method='POST' name='delete_car'><input type='submit' class='btn btn-outline-danger' value='Delete Car' name='delete'/><small class='form-text text-muted'>Please note that deleting the car will result in deletion of all related rides and bids.</small></form></div>";
     echo "</div></div>";
 	}
+  if (isset($_POST['delete'])) {
+    $result2 = pg_query($db, "BEGIN; DELETE FROM bid WHERE rider_id = '$user_id'; DELETE FROM ride_generate WHERE rider_id = '$user_id'; DELETE FROM car WHERE phone_number = '$user_id'; COMMIT;");
+    if (!$result2) {
+      echo "<p class='text-danger'>Delete Car Failed!</p>";
+    } else {
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
+  }
 ?>
 
 </body>
