@@ -130,7 +130,7 @@ if (isset($_SESSION["user_id"])) {
         // echo $_POST[date];
         // echo $_POST[origin];
         // echo $_POST[destination];
-        $result = pg_query($db, "INSERT INTO ride_generate VALUES('$rid_number', '$user_id', null,   '$currentdate', '$_POST[date]' , '$_POST[time]', '$_POST[seat]' , '$_POST[origin]' , '$_POST[destination]' , 0  )" );
+        $result = pg_query($db, "INSERT INTO ride_generate VALUES('$rid_number', '$user_id', null,   '$currentdate', '$_POST[date]' , '$_POST[time]', '$_POST[seat]' , '$_POST[origin]' , '$_POST[destination]')" );
         if (!$result) {
             echo "Update failed!!";
         } else {
