@@ -21,8 +21,12 @@ CREATE TABLE car(
 
 CREATE TABLE ride_generate(
 	rid_number VARCHAR(10) PRIMARY KEY,
-	rider_id INTEGER REFERENCES car(phone_number),
-	passenger_id INTEGER REFERENCES appuser(phone_number),
+	rider_id INTEGER REFERENCES car(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	passenger_id INTEGER REFERENCES appuser(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	date_of_generation DATE,
 	date_of_ride DATE,
 	time_of_ride TIME,
@@ -38,7 +42,9 @@ CREATE TABLE bid(
 	phone_number INTEGER REFERENCES appuser(phone_number),
 	rid_number VARCHAR(10),
 	rider_id INTEGER,
-	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id),
+	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	status BOOLEAN,
 	point INTEGER,
 	PRIMARY KEY (phone_number,rid_number),
