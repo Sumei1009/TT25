@@ -71,17 +71,30 @@ if (isset($_SESSION["user_id"])) {
 		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
 
 	}else{
-    echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
-    echo "<table class='table'><thead><tr>
-      <th scope='col'>Car Id</th>
-      <th scope='col'>Brand</th>
-      <th scope='col'>Model</th>
-      </tr></thead><tbody>";
-		echo "<tr><td>".$row["car_id"]. "</td>";
-		echo "<td>".$row["car_brand"]."</td>";
-		echo "<td>".$row["car_model"]."</td></tr>";
-    echo "</tbody></table>";
+    echo "<div class='container'>
+          <form>
+          <fieldset>
+          <legend>This is your car infromation:</legend>
+          <p>Car ID: ".$row["car_id"]."</p><br>
+          <p>Brand: ".$row["car_brand"]."</p><br>
+          <p>Model: ".$row["car_model"]."</p>
+          </fieldset>
+        </form>";
+  //   echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
+  //   echo
+
+
+  //   echo "<table class='table'><thead><tr>
+  //     <th scope='col'>Car Id</th>
+  //     <th scope='col'>Brand</th>
+  //     <th scope='col'>Model</th>
+  //     </tr></thead><tbody>";
+		// echo "<tr><td>".. "</td>";
+		// echo "<td>".$row["car_brand"]."</td>";
+		// echo "<td>".$row["car_model"]."</td></tr>";
+  //   echo "</tbody></table>";
     echo "<form action='updatecar.php'><input type='submit' value='Update Information' /></form>";
+    echo "</div>";
 	}
 
 ?>
