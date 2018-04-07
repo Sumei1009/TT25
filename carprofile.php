@@ -29,7 +29,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.php">My Profile</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
