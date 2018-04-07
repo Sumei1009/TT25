@@ -30,7 +30,10 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="index.php">My Profile</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -39,10 +42,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="carprofile.php">Car Information</a>          
@@ -59,7 +59,7 @@ if (isset($_SESSION["user_id"])) {
 
 	<div class="container">
   <?php
-    $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+    $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
     $result = pg_query($db, "SELECT * FROM car WHERE phone_number = $user_id ");
     $row = pg_fetch_assoc($result);
 
@@ -120,16 +120,16 @@ if (isset($_SESSION["user_id"])) {
   $zerovalue = 0;
   $currentdate = date("Y-m-d");
 
-  echo  $currentdate;
+  //echo  $currentdate;
 
-	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
 
 	if (isset($_POST['submit'])) {
-        echo $_POST[time];
-        echo $_POST[seat];
-        echo $_POST[date];
-        echo $_POST[origin];
-        echo $_POST[destination];
+        //echo $_POST[time];
+        // echo $_POST[seat];
+        // echo $_POST[date];
+        // echo $_POST[origin];
+        // echo $_POST[destination];
         $result = pg_query($db, "INSERT INTO ride_generate VALUES('$rid_number', '$user_id', null,   '$currentdate', '$_POST[date]' , '$_POST[time]', '$_POST[seat]' , '$_POST[origin]' , '$_POST[destination]' , 0  )" );
         if (!$result) {
             echo "Update failed!!";
