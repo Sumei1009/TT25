@@ -30,7 +30,10 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="index.php">My Profile</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -39,10 +42,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="carprofile.php">Car Information</a>          
@@ -81,7 +81,7 @@ if (isset($_SESSION["user_id"])) {
 	</form>
 
   <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");
+  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
 
 
 

@@ -25,39 +25,36 @@ if (isset($_SESSION["user_id"])) {
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.php">Home</a>
-          </li>
-          <li class="nav-item">
+          <a class="nav-link active" href="index.php">Home</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="index.php">My Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">My Car</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="viewmyrides.php">My Rides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="currentbids.php">Current Bids</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="generaterides.php">Generate Rides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="searchrides.php">Search Rides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="searchrides.php">Search Rides</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="signin.php">Logout</a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="currentbids.php">Current Bids</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="generaterides.php">Generate Rides</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="searchride.php">Search Rides</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="carprofile.php">Car Information</a>          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="signin.php">Logout</a>
+        </li>
         </ul>
       </div>
     </nav>
     <div class="container">
       <h2 class="d-block p-2 bg-light text-warning" style="margin-bottom: 0;">My Current Bids:</h2>
       <?php
-        $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
+        $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
         $result = pg_query($db, "SELECT * FROM bid B WHERE B.phone_number = '{$user_id}' ORDER BY B.rid_number;");
         if ($result && pg_num_rows($result)!=0) {
           $i = 1;
