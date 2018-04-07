@@ -13,7 +13,9 @@ CREATE TABLE car(
 	car_id VARCHAR(10) UNIQUE,
 	car_brand VARCHAR(10) NOT NULL,
 	car_model VARCHAR(15),
-	phone_number INTEGER REFERENCES appuser(phone_number),
+	phone_number INTEGER REFERENCES appuser(phone_number)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	PRIMARY KEY (phone_number)
 );
 

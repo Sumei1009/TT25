@@ -19,7 +19,7 @@ if (isset($_SESSION["user_id"])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
+  <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -29,7 +29,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.php">My Profile</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
@@ -52,22 +52,22 @@ if (isset($_SESSION["user_id"])) {
       </ul>
     </div>
     </nav>
-  <span class="d-block p-2 bg-primary text-white">Update Car</span>
+  <span class="d-block p-2 bg-primary text-white">Update Profile</span>
 <div class="container">
     <form name="display" class="bd-example" method="POST">
     <fieldset>
-      <legend > Update Car</legend>
+      <legend > Update Profile</legend>
       <p>
-        <label class="carlabel" for="input">Car Id:</label>
-        <input type="text" name="car_id" /></li>
+        <label class="carlabel" for="input">First Name:</label>
+        <input type="text" name="first_name" /></li>
       </p>
       <p>
-        <label class="carlabel" for="input">Car Brand:</label>
-        <input type="text" name="car_brand" /></li>
+        <label class="carlabel" for="input">Last Name:</label>
+        <input type="text" name="last_name" /></li>
       </p>
       <p>
-        <label class="carlabel" for="input">Car Model:</label>
-        <input type="text" name="car_model" /></li>
+        <label class="carlabel" for="input">Password:</label>
+        <input type="text" name="password" /></li>
       </p>
       <p>
         <input type="submit" name="submit" /> 
@@ -76,31 +76,31 @@ if (isset($_SESSION["user_id"])) {
 
   </form>
 <?php
-	if($_POST['car_id']&&$_POST['car_brand']&&$_POST['car_model']){
-		// Connect to the database. Please change the password in the following line accordingly
-	    $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
-		$result = pg_query($db, "UPDATE car SET car_id='$_POST[car_id]',car_model='$_POST[car_model]',car_brand='$_POST[car_brand]' WHERE phone_number='$user_id'");
-		if (isset($_POST['submit'])){
-				if ($result){
-					echo "Update successful";
-					}
-				else{
-					echo "Update failed";
-				}
-			}
-		}
-		else{
-			if (isset($_POST['submit'])){
-				echo "Incomplete Information";
-			}
+  if($_POST['password']&&$_POST['first_name']&&$_POST['last_name']){
+    // Connect to the database. Please change the password in the following line accordingly
+      $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");  
+    $result = pg_query($db, "UPDATE appuser SET first_name='$_POST[first_name]',last_name='$_POST[last_name]', password='$_POST[password]' WHERE phone_number='$user_id'");
+    if (isset($_POST['submit'])){
+        if ($result){
+          echo "Update successful";
+          }
+        else{
+          echo "Update failed";
+        }
+      }
+    }
+    else{
+      if (isset($_POST['submit'])){
+        echo "Incomplete Information";
+      }
 
-		}
+    }
 
 
 
 
 ?>
-<button onclick="location.href='carprofile.php'">Go Back</button>
+<button onclick="location.href='myprofile.php'">Go Back</button>
 
 </div>
 </body>

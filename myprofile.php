@@ -1,5 +1,4 @@
-<?php
-// Start the session
+<?php 
 session_start();
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
@@ -8,7 +7,8 @@ if (isset($_SESSION["user_id"])) {
     exit;
 }
 ?>
-<!DOCTYPE html>  
+
+<!DOCTYPE html>
 <head>
   <title>Index</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,7 +29,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.php">My Profile</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
@@ -52,56 +52,38 @@ if (isset($_SESSION["user_id"])) {
       </ul>
     </div>
     </nav>
-  <span class="d-block p-2 bg-primary text-white">Update Car</span>
-<div class="container">
-    <form name="display" class="bd-example" method="POST">
-    <fieldset>
-      <legend > Update Car</legend>
-      <p>
-        <label class="carlabel" for="input">Car Id:</label>
-        <input type="text" name="car_id" /></li>
-      </p>
-      <p>
-        <label class="carlabel" for="input">Car Brand:</label>
-        <input type="text" name="car_brand" /></li>
-      </p>
-      <p>
-        <label class="carlabel" for="input">Car Model:</label>
-        <input type="text" name="car_model" /></li>
-      </p>
-      <p>
-        <input type="submit" name="submit" /> 
-      </p>
-    </fieldset>
-
-  </form>
-<?php
-	if($_POST['car_id']&&$_POST['car_brand']&&$_POST['car_model']){
-		// Connect to the database. Please change the password in the following line accordingly
-	    $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
-		$result = pg_query($db, "UPDATE car SET car_id='$_POST[car_id]',car_model='$_POST[car_model]',car_brand='$_POST[car_brand]' WHERE phone_number='$user_id'");
-		if (isset($_POST['submit'])){
-				if ($result){
-					echo "Update successful";
-					}
-				else{
-					echo "Update failed";
-				}
-			}
-		}
-		else{
-			if (isset($_POST['submit'])){
-				echo "Incomplete Information";
-			}
-
-		}
 
 
 
+	<span class="d-block p-2 bg-primary text-white">User Profile</span>
+
+
+
+	<?php 
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
+
+	$result = pg_query($db, "SELECT * FROM appuser WHERE phone_number = $user_id;  ");
+
+	$row = pg_fetch_assoc($result);
+
+	if (!$row){
+		echo "Error! No such user! \n";
+	}else{
+    echo "<div class='container'>
+          <form>
+          <fieldset>
+          <legend>This is your infromation:</legend>
+          <p>Phone Number: ".$row["phone_number"]."</p><br>
+          <p>First Name: ".$row["first_name"]."</p><br>
+          <p>Last Name: ".$row["last_name"]."</p>
+          </fieldset>
+        </form>";
+
+    echo "<form action='updateprofile.php'><input type='submit' value='Update Profile' /></form>";
+    echo "</div>";
+	}
 
 ?>
-<button onclick="location.href='carprofile.php'">Go Back</button>
 
-</div>
 </body>
 </html>
