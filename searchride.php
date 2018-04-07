@@ -101,10 +101,9 @@ if (isset($_SESSION["user_id"])) {
 			<th scope='col'>Number of Bidders</th>
 			<th scope='col'>Your Bid</th>
 			<th scope='col'>Highest Bid</th>
-			<th scope='col'>New Bid</th>
 			</tr></thead><tbody>";
 			while ($row=pg_fetch_assoc($result)){
-				echo "<tr><td>" .$row["date_of_ride"]. "</td><td>"  .$row["rid_number"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>"  .$row["car_brand"]. "</td><td>"  .$row["car_model"].  "</td><td>"  .$row["num_bidders"].  "</td><td>"  .$row["point"].  "</td><td>"  .$row["max_bid"].
+				echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>"  .$row["car_brand"]. "</td><td>"  .$row["car_model"].  "</td><td>"  .$row["num_bidders"].  "</td><td>"  .$row["point"].  "</td><td>"  .$row["max_bid"].
 				"</td><td> 
 				<form name='".$row[rid_number]."' method=\"POST2\" >
 				<input type=\"text\" name=\"new_bid\" />
