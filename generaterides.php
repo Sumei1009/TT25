@@ -93,7 +93,7 @@ if (isset($_SESSION["user_id"])) {
           </p>
 
           <p>
-            <input type=\"submit\" name=\"submit\" /> 
+            <input class=\"btn btn-outline-primary\" type=\"submit\" name=\"submit\" /> 
           </p>
         </fieldset>
       </form>

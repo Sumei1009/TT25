@@ -61,7 +61,7 @@ if (isset($_SESSION["user_id"])) {
     <form name="display" action="searchride.php" method="POST" >
 	<li> Date: Origin:  Destination: </li>
 	<li><input type="date" name="date" />       <input type="text" name="origin" />    
-	<input type="text" name="destination" />  <input type="submit" name="submit" value="search"></li>
+	<input type="text" name="destination" />  <input class="btn btn-outline-primary" type="submit" name="submit" value="search"></li>
 	</form>
    </ul>
 

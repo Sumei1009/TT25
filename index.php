@@ -52,8 +52,7 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
-    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
-    //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
         if ($result){
@@ -108,7 +107,7 @@ if (isset($_SESSION["user_id"])) {
         echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>" .$row["num_bidders"]."</td><td>" .$row["point"]."</td><td>" .$row["max_bid"]."</td><td>
         <form name='".$row[rid_number]."' method=\"POST\" >
         <input type=\"text\" name=\"new_bid\" />
-        <input type=\"submit\" name='bid' value=\"Bid\">
+        <input type=\"submit\" class=\"btn btn-outline-primary\" style=\"padding: .1rem .75rem;\" name='bid' value=\"Bid\">
         <input type=\"hidden\" name=\"rid_number\" value='".$row[rid_number]."'/>
         </form>
         </td></tr>";
