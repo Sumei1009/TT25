@@ -14,8 +14,8 @@ CREATE TABLE car(
 	car_brand VARCHAR(10) NOT NULL,
 	car_model VARCHAR(15),
 	phone_number INTEGER REFERENCES appuser(phone_number)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE,
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	PRIMARY KEY (phone_number)
 );
 
@@ -53,6 +53,18 @@ CREATE TABLE bid(
 	CHECK (phone_number <> rider_id),
 	CHECK (point >= 0)
 );
+
+CREATE OR REPLACE FUNCTION UpdateBid (new_point integer, curr_rid VARCHAR(10), curr_phone INTEGER)
+	RETURNS void AS
+	$BODY$
+		BEGIN
+		UPDATE bid SET point = new_point
+		WHERE rid_number = curr_rid
+		AND phone_number = curr_phone;
+		END;
+	$BODY$
+	LANGUAGE 'plpgsql' VOLATILE
+	COST 100;
 
 INSERT INTO appuser VALUES (99999999,'Mark','Zuckerberg','M','facebook001', TRUE);
 INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','11111111',FALSE);
