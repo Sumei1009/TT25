@@ -52,16 +52,29 @@ if (isset($_SESSION["user_id"])) {
       </ul>
     </div>
     </nav>
+  <span class="d-block p-2 bg-primary text-white">Update Car</span>
+<div class="container">
+    <form name="display" class="bd-example" method="POST">
+    <fieldset>
+      <legend > Update Car</legend>
+      <p>
+        <label class="carlabel" for="input">Car Id:</label>
+        <input type="text" name="car_id" /></li>
+      </p>
+      <p>
+        <label class="carlabel" for="input">Car Brand:</label>
+        <input type="text" name="car_brand" /></li>
+      </p>
+      <p>
+        <label class="carlabel" for="input">Car Model:</label>
+        <input type="text" name="car_model" /></li>
+      </p>
+      <p>
+        <input type="submit" name="submit" /> 
+      </p>
+    </fieldset>
 
-<body>
-  <h2>Update Car</h2>
-   <ul>
-    <form name="display" action="updatecar.php" method="POST" >
-	<li> Car Id: Car Brand:  Car Model: </li>
-	<li>  <input type="text" name="car_id" />  <input type="text" name="car_brand" />   <input type="text" name="car_model" /> 
-	<input type="submit" name="submit" value="update"></li>
-	</form>
-   </ul>
+  </form>
 <?php
 	if($_POST['car_id']&&$_POST['car_brand']&&$_POST['car_model']){
 		// Connect to the database. Please change the password in the following line accordingly
@@ -69,10 +82,10 @@ if (isset($_SESSION["user_id"])) {
 		$result = pg_query($db, "UPDATE car SET car_id='$_POST[car_id]',car_model='$_POST[car_model]',car_brand='$_POST[car_brand]' WHERE phone_number='$user_id'");
 		if (isset($_POST['submit'])){
 				if ($result){
-					echo "Update Successful";
+					echo "Update successful";
 					}
 				else{
-					echo "Update Failed";
+					echo "Update failed";
 				}
 			}
 		}
@@ -88,6 +101,7 @@ if (isset($_SESSION["user_id"])) {
 
 ?>
 <button onclick="location.href='carprofile.php'">Go Back</button>
-	
+
+</div>
 </body>
 </html>
