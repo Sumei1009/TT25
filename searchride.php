@@ -70,18 +70,18 @@ if (isset($_SESSION["user_id"])) {
   	// Connect to the database. Please change the password in the following line accordingly
     $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
 	if (!($_POST['destination'])&&!($_POST['origin'])&&!($_POST['date'])){
-		$result=pg_query($db, "SELECT date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number rid_number,K.rider_id rider_id,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
+		$result=pg_query($db, "SELECT distinct date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number rid_number,K.rider_id rider_id,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
 		FROM (ride_generate R INNER JOIN car C ON (R.rider_id=C.phone_number)) K LEFT OUTER JOIN bid B ON K.rid_number=B.rid_number
-		GROUP BY date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number");
+		ORDER BY date_of_ride, time_of_ride;");
 		}
 	elseif (!(($_POST['destination'])&&($_POST['origin'])&&($_POST['date']))){
 		//do nothing
 		}
 	else{
-		$result = pg_query($db, "SELECT date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number rid_number,K.rider_id rider_id,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
+		$result = pg_query($db, "SELECT distinct date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number rid_number,K.rider_id rider_id,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
 		FROM  (ride_generate R INNER JOIN car C ON (R.rider_id=C.phone_number)) K LEFT OUTER JOIN bid B ON K.rid_number=B.rid_number
 		WHERE date_of_ride='$_POST[date]' AND origin='$_POST[origin]' AND destination='$_POST[destination]'
-		GROUP BY date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number");
+		ORDER BY date_of_ride, time_of_ride");
 		}
 	if (isset($_POST['submit'])) {
 		if (!$result&&!(($_POST['destination'])&&($_POST['origin'])&&($_POST['date']))){
@@ -104,22 +104,36 @@ if (isset($_SESSION["user_id"])) {
 			</tr></thead><tbody>";
 			while ($row=pg_fetch_assoc($result)){
 				echo "<tr><td>" .$row["date_of_ride"]. "</td><td>" .$row["time_of_ride"]. "</td><td>" .$row["origin"]. "</td><td>" .$row["destination"]. "</td><td>"  .$row["car_brand"]. "</td><td>"  .$row["car_model"].  "</td><td>"  .$row["num_bidders"].  "</td><td>"  .$row["point"].  "</td><td>"  .$row["max_bid"].
-				"</td><td> 
-				<form name='".$row[rid_number]."' method=\"POST2\" >
-				<input type=\"text\" name=\"new_bid\" />
-				<input type=\"submit\" name='bid' value=\"Bid\">
+				"</td><td>
+				<form name='".$row[rid_number]."' method=\"POST\" >
+				<div class='row'>
+				<div class='col-7'><input style='width:90px;' type=\"text\" name=\"new_bid\" /></div>
+				<div class='col-3'><input class='btn btn-outline-primary' style='padding-bottom: 0; padding-top: 0;' type=\"submit\" name='bid' value=\"Bid\"></div>
+				</div>
 				<input type=\"hidden\" name=\"rid_number\" value='".$row[rid_number]."'/>
+				<input type=\"hidden\" name=\"rider_id\" value='".$row[rider_id]."'/>
 				</form>
 				</td></tr>";
 			}
-			if (isset($_POST2['bid'])) {
-
-				$result1 = pg_query($db, "UPDATE bid SET point = ".$_POST2[new_bid]."
-				WHERE rid_number = '".$_POST2[rid_number]."'
-				AND phone_number =" .$user_id. ";"); 
-				echo "<meta http-equiv='refresh' content='0'>";
-				}
 			echo "</tbody></table>";
+		}
+	}
+	if (isset($_POST['bid'])) {
+		$new_bid = $_POST['new_bid'];
+		$rid = $_POST['rid_number'];
+		$did = $_POST['rider_id'];
+		$result2 = pg_query($db, "INSERT INTO bid VALUES ({$user_id}, '{$rid}', {$did}, null, {$new_bid});"); 
+		if (!$result2) {
+			$result1 = pg_query($db, "UPDATE bid SET point = '{$new_bid}'
+	          WHERE rid_number = '{$rid}'
+	          AND phone_number ='{$user_id}';"); 
+			if (!$result1) {
+				echo "Update bid fails!!";
+			} else {
+				echo "<meta http-equiv='refresh' content='0'>";
+			}
+		} else {
+			echo "<meta http-equiv='refresh' content='0'>";
 		}
 	}
     ?>  
