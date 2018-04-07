@@ -5,11 +5,9 @@ session_start();
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Sign In</title>
+  <title>Sign up</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <style>li {list-style: none;}</style>
 </head>
 <body>
   <div class="container col-4" style="margin-top: 40px;">
@@ -38,10 +36,22 @@ session_start();
       if (!$row) {
           echo "The user name or password is incorrect!";
       } else {
+        if ($row["isadmin"] != 'f'){
+          echo "Logged in as Admin!";
+          $_SESSION["user_id"] = $row["phone_number"];
+          $_SESSION["password"] = $row["password"];
+          $_SESSION["isadmin"] = $row["isadmin"];
+          echo $_SESSION["user_id"];
+          sleep(1);
+          header("Location: ./admin.php");
+          exit;
+        }
           echo "Logged in!";
           $_SESSION["user_id"] = $row["phone_number"];
           $_SESSION["password"] = $row["password"];
+          $_SESSION["isadmin"] = $row["isadmin"];
           echo $_SESSION["user_id"];
+          sleep(1);
           header("Location: ./index.php");
           exit;
       }

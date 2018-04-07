@@ -113,9 +113,7 @@ if (isset($_SESSION["user_id"])) {
         </td></tr>";
       }
       if (isset($_POST['bid'])) {
-          $result1 = pg_query($db, "UPDATE bid SET point = ".$_POST[new_bid]."
-          WHERE rid_number = '".$_POST[rid_number]."'
-          AND phone_number =" .$user_id. ";"); 
+          $result1 = pg_query($db, "SELECT * FROM UpdateBid(".$_POST[new_bid].",'".$_POST[rid_number]."', ".$user_id.");");
           echo "<meta http-equiv='refresh' content='0'>";
       }
       echo "</tbody></table>";

@@ -6,7 +6,7 @@ CREATE TABLE appuser(
 	last_name VARCHAR(30) NOT NULL,
 	gender CHAR(1),
 	password VARCHAR(20) NOT NULL, 
-	isAdmin BOOLEAN
+	isadmin BOOLEAN
 );
 
 CREATE TABLE car(
@@ -21,8 +21,12 @@ CREATE TABLE car(
 
 CREATE TABLE ride_generate(
 	rid_number VARCHAR(10) PRIMARY KEY,
-	rider_id INTEGER REFERENCES car(phone_number),
-	passenger_id INTEGER REFERENCES appuser(phone_number),
+	rider_id INTEGER REFERENCES car(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	passenger_id INTEGER REFERENCES appuser(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	date_of_generation DATE,
 	date_of_ride DATE,
 	time_of_ride TIME,
@@ -35,28 +39,20 @@ CREATE TABLE ride_generate(
 );
 
 CREATE TABLE bid(
-	phone_number INTEGER REFERENCES appuser(phone_number),
+	phone_number INTEGER REFERENCES appuser(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	rid_number VARCHAR(10),
 	rider_id INTEGER,
-	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id),
+	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	status BOOLEAN,
 	point INTEGER,
 	PRIMARY KEY (phone_number,rid_number),
 	CHECK (phone_number <> rider_id),
 	CHECK (point >= 0)
 );
-
-CREATE OR REPLACE FUNCTION UpdateBid (new_point integer, curr_rid VARCHAR(10), curr_phone INTEGER)
-	RETURNS void AS
-	$BODY$
-		BEGIN
-		UPDATE bid SET point = new_point
-		WHERE rid_number = curr_rid
-		AND phone_number = curr_phone;
-		END;
-	$BODY$
-	LANGUAGE 'plpgsql' VOLATILE
-	COST 100;
 
 INSERT INTO appuser VALUES (99999999,'Mark','Zuckerberg','M','facebook001', TRUE);
 INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','11111111',FALSE);
