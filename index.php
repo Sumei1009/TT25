@@ -52,11 +52,7 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
-<<<<<<< HEAD
-    $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
-=======
-    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
->>>>>>> 4c8af9f45216574fe40731bd548ee9056d90b331
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx"); 
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
