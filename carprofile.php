@@ -44,7 +44,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="carprofile.php">Car Information</a>          
+          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -53,14 +53,12 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
 
-
-
 	<span class="d-block p-2 bg-primary text-white">Car Profile</span>
 
 
 
 	<?php 
-	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
 	$result = pg_query($db, "SELECT car_id, car_brand, car_model FROM car WHERE phone_number = $user_id  ");
 
@@ -71,14 +69,6 @@ if (isset($_SESSION["user_id"])) {
 		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
 
 	}else{
-<<<<<<< HEAD
-    echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
-		echo $row["car_id"];
-		echo $row["car_brand"]; 
-		echo $row["car_model"];
-
-
-=======
     echo "<div class='container'>
           <form>
           <fieldset>
@@ -88,24 +78,9 @@ if (isset($_SESSION["user_id"])) {
           <p>Model: ".$row["car_model"]."</p>
           </fieldset>
         </form>";
-  //   echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
-  //   echo
-
-
-  //   echo "<table class='table'><thead><tr>
-  //     <th scope='col'>Car Id</th>
-  //     <th scope='col'>Brand</th>
-  //     <th scope='col'>Model</th>
-  //     </tr></thead><tbody>";
-		// echo "<tr><td>".. "</td>";
-		// echo "<td>".$row["car_brand"]."</td>";
-		// echo "<td>".$row["car_model"]."</td></tr>";
-  //   echo "</tbody></table>";
     echo "<form action='updatecar.php'><input type='submit' value='Update Information' /></form>";
     echo "</div>";
->>>>>>> 7d64ec9188095a1678905186315d3ed506cd509d
 	}
-
 ?>
 
 </body>

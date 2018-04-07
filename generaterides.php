@@ -45,7 +45,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -59,7 +59,7 @@ if (isset($_SESSION["user_id"])) {
 
 	<div class="container">
   <?php
-    $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");
+    $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
     $result = pg_query($db, "SELECT * FROM car WHERE phone_number = $user_id ");
     $row = pg_fetch_assoc($result);
 

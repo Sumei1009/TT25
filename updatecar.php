@@ -26,7 +26,7 @@ if (isset($_SESSION["user_id"])) {
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="myprofile.php">My Profile</a>
@@ -44,7 +44,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>

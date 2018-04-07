@@ -26,7 +26,7 @@ if (isset($_SESSION["user_id"])) {
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="myprofile.php">My Profile</a>
@@ -44,7 +44,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -78,7 +78,7 @@ if (isset($_SESSION["user_id"])) {
 <?php
   if($_POST['password']&&$_POST['first_name']&&$_POST['last_name']){
     // Connect to the database. Please change the password in the following line accordingly
-      $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=Ml271slwmx");  
+      $db  = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");  
     $result = pg_query($db, "UPDATE appuser SET first_name='$_POST[first_name]',last_name='$_POST[last_name]', password='$_POST[password]' WHERE phone_number='$user_id'");
     if (isset($_POST['submit'])){
         if ($result){
@@ -95,10 +95,6 @@ if (isset($_SESSION["user_id"])) {
       }
 
     }
-
-
-
-
 ?>
 <button onclick="location.href='myprofile.php'">Go Back</button>
 

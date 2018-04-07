@@ -213,7 +213,7 @@ if (isset($_SESSION["user_id"])) {
           $result4 = pg_query($db, "BEGIN; UPDATE bid set status = TRUE where rid_number = '{$rid}' and phone_number = {$phone};");
           $result5 = pg_query($db, "UPDATE bid set status = FALSE where rid_number = '{$rid}' and phone_number <> {$phone};");
           $result6 = pg_query($db, "UPDATE ride_generate set passenger_id = '{$phone}' where rid_number = '{$rid}'; COMMIT;");
-          header("Refresh:0");
+          echo "<meta http-equiv='refresh' content='0'>";
         }
       }
     ?>

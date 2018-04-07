@@ -7,19 +7,24 @@ session_start();
 <head>
   <title>Sign In</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <style>li {list-style: none;}</style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h2>Sign In</h2>
-  <ul>
-    <form name="display" action="signin.php" method="POST" >
-      <li>Phone Number: </li>
-      <li><input type="text" name="phone" /></li>
-      <li>Password:</li>
-      <li><input type="password" name="password" /></li>
-      <li><input type="submit" name="login" /></li>
-    </form>
-  </ul>
+  <div class="container">
+    <h2>Sign In</h2>
+    <ul>
+      <form name="display" action="signin.php" method="POST" >
+        <li>Phone Number: </li>
+        <li><input type="text" name="phone" /></li>
+        <li>Password:</li>
+        <li><input type="password" name="password" /></li>
+        <li><input type="submit" name="login" /></li>
+      </form>
+    </ul>
+    <a href="signup.php">Don't have a account? Sign up here!</a>
+  </div>
   <?php
     if (isset($_POST['login'])) {
   	// Connect to the database. Please change the password in the following line accordingly
