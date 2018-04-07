@@ -29,7 +29,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="myprofile.php">My Profile</a>
+            <a class="nav-link active" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
@@ -44,7 +44,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
+          <a class="nav-link" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -70,7 +70,8 @@ if (isset($_SESSION["user_id"])) {
         <input type="text" name="password" /></li>
       </p>
       <p>
-        <input type="submit" name="submit" /> 
+        <input class='btn btn-outline-primary' style='margin-right: 100px;' type="submit" name="submit" />
+        <input class='btn btn-outline-primary' onclick="location.href='myprofile.php'" type="button" name="cancel" value="Cancel"/>
       </p>
     </fieldset>
 
@@ -96,8 +97,6 @@ if (isset($_SESSION["user_id"])) {
 
     }
 ?>
-<button onclick="location.href='myprofile.php'">Go Back</button>
-
 </div>
 </body>
 </html>

@@ -70,7 +70,8 @@ if (isset($_SESSION["user_id"])) {
         <input type="text" name="car_model" /></li>
       </p>
       <p>
-        <input type="submit" name="submit" /> 
+        <input class='btn btn-outline-primary' style='margin-right: 100px;' type="submit" name="submit" /> 
+        <input class='btn btn-outline-primary' onclick="location.href='carprofile.php'" type="button" name="cancel" value="Cancel"/>
       </p>
     </fieldset>
 
@@ -95,13 +96,7 @@ if (isset($_SESSION["user_id"])) {
 			}
 
 		}
-
-
-
-
 ?>
-<button onclick="location.href='carprofile.php'">Go Back</button>
-
 </div>
 </body>
 </html>

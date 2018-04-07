@@ -79,7 +79,7 @@ if (isset($_SESSION["user_id"])) {
           </fieldset>
         </form>";
 
-    echo "<form action='updateprofile.php'><input type='submit' value='Update Profile' /></form>";
+    echo "<form action='updateprofile.php'><input type='submit' class='btn btn-outline-primary' value='Update Profile' /></form>";
     echo "</div>";
 	}
 
