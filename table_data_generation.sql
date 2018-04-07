@@ -39,7 +39,9 @@ CREATE TABLE ride_generate(
 );
 
 CREATE TABLE bid(
-	phone_number INTEGER REFERENCES appuser(phone_number),
+	phone_number INTEGER REFERENCES appuser(phone_number)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	rid_number VARCHAR(10),
 	rider_id INTEGER,
 	FOREIGN KEY (rid_number, rider_id) REFERENCES ride_generate(rid_number, rider_id)
@@ -51,18 +53,6 @@ CREATE TABLE bid(
 	CHECK (phone_number <> rider_id),
 	CHECK (point >= 0)
 );
-
-CREATE OR REPLACE FUNCTION UpdateBid (new_point integer, curr_rid VARCHAR(10), curr_phone INTEGER)
-	RETURNS void AS
-	$BODY$
-		BEGIN
-		UPDATE bid SET point = new_point
-		WHERE rid_number = curr_rid
-		AND phone_number = curr_phone;
-		END;
-	$BODY$
-	LANGUAGE 'plpgsql' VOLATILE
-	COST 100;
 
 INSERT INTO appuser VALUES (99999999,'Mark','Zuckerberg','M','facebook001', TRUE);
 INSERT INTO appuser VALUES (90388714,'Sumei','Su','F','asfsadg',FALSE);
