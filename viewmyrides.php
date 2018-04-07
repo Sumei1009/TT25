@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Index</title>
+  <title>View My Rides</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -18,17 +18,9 @@ if (isset($_SESSION["user_id"])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- <script>
-    function logout() {
-      console.log("Logout!!!!!");
-      $_SESSION = [];
-      session_destroy();
-      window.location = "http://localhost:8080/cs2102/signin.php";
-    };
-  </script>  -->
   <nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
@@ -36,11 +28,8 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="index.php">My Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="index.php">My Car</a>
-        </li>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
+          </li>
         <li class="nav-item">
           <a class="nav-link active" href="viewmyrides.php">My Rides</a>
         </li>
@@ -51,10 +40,10 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="carprofile.php">Car Information</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -65,7 +54,7 @@ if (isset($_SESSION["user_id"])) {
   <div class="container">
     <h2 class="d-block p-2 bg-light text-warning" style="margin-bottom: 0;">My Rides:</h2>
     <?php
-      $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+      $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
       $result = pg_query($db, "SELECT * FROM car WHERE phone_number = '{$user_id}';");
       if (!$result){
         echo "Invalid query";
@@ -145,7 +134,7 @@ if (isset($_SESSION["user_id"])) {
                             </div>
                             <div class='col-6'>";
                                 $rid = $row2["rid_number"];
-                                $bid = pg_query($db, "SELECT * FROM bid B, appuser A WHERE rid_number = '{$rid}' AND A.phone_number = B.phone_number ORDER BY point desc;");
+                                $bid = pg_query($db, "SELECT A.phone_number, first_name, last_name, (case when B.status is null then 'Pending' when B.status then 'Successful' else 'Failed' end) as status, rid_number, point FROM bid B, appuser A WHERE rid_number = '{$rid}' AND A.phone_number = B.phone_number ORDER BY point desc;");
                                 if (!$bid) {
                                   echo "Opps! Something Wrong! Try to refresh!";
                                 } else if (pg_num_rows($bid) == 0) {
@@ -224,7 +213,7 @@ if (isset($_SESSION["user_id"])) {
           $result4 = pg_query($db, "BEGIN; UPDATE bid set status = TRUE where rid_number = '{$rid}' and phone_number = {$phone};");
           $result5 = pg_query($db, "UPDATE bid set status = FALSE where rid_number = '{$rid}' and phone_number <> {$phone};");
           $result6 = pg_query($db, "UPDATE ride_generate set passenger_id = '{$phone}' where rid_number = '{$rid}'; COMMIT;");
-          header("Refresh:0");
+          echo "<meta http-equiv='refresh' content='0'>";
         }
       }
     ?>

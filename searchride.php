@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Search ride</title>
+  <title>Search rides</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <style>li {list-style: none;}</style>
   <style>p.indent{ padding-left: 1.0 em }</style>
@@ -23,6 +23,39 @@ if (isset($_SESSION["user_id"])) {
 
 </head>
 <body>
+	<nav class="navbar navbar-expand-sm sticky-top bg-warning navbar-dark">
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarToggler">
+	      <ul class="navbar-nav">
+	        <li class="nav-item">
+	          <a class="nav-link" href="index.php">Home</a>
+	        </li>
+	        <li class="nav-item">
+	            <a class="nav-link" href="myprofile.php">My Profile</a>
+	          </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="viewmyrides.php">My Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="currentbids.php">Current Bids</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="generaterides.php">Generate Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link active" href="searchride.php">Search Rides</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="carprofile.php">Car Profile</a>          
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="signin.php">Logout</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </nav>
   <h2>Search ride</h2>
    <ul>
     <form name="display" action="searchride.php" method="POST" >
@@ -35,7 +68,7 @@ if (isset($_SESSION["user_id"])) {
    <span class="d-block p-2 bg-primary text-white">Results</span>
   <?php
   	// Connect to the database. Please change the password in the following line accordingly
-    $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm");	
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");	
 	if (!($_POST['destination'])&&!($_POST['origin'])&&!($_POST['date'])){
 		$result=pg_query($db, "SELECT date_of_ride,time_of_ride,origin,destination,car_brand,car_model,K.rid_number rid_number,K.rider_id rider_id,(SELECT count(*) FROM bid WHERE bid.rid_number=K.rid_number) num_bidders, (SELECT max(point) FROM bid WHERE bid.rid_number=K.rid_number) max_bid, (SELECT point FROM bid WHERE bid.rid_number=K.rid_number AND bid.phone_number='$user_id') point
 		FROM (ride_generate R INNER JOIN car C ON (R.rider_id=C.phone_number)) K LEFT OUTER JOIN bid B ON K.rid_number=B.rid_number

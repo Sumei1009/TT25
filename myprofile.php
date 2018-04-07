@@ -9,9 +9,8 @@ if (isset($_SESSION["user_id"])) {
 ?>
 
 <!DOCTYPE html>
-<html>
 <head>
-  <title>Register Car</title>
+  <title>Index</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/style.css">
@@ -30,7 +29,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="myprofile.php">My Profile</a>
+            <a class="nav-link active" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
@@ -45,7 +44,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
+          <a class="nav-link" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -54,50 +53,37 @@ if (isset($_SESSION["user_id"])) {
     </div>
     </nav>
 
-	<span class="d-block p-2 bg-primary text-white">Car Registration</span>
 
 
-	<div class="container">
-		<form name="display" class="bd-example" method="POST">
-		<fieldset>
-			<legend > Cars Registration</legend>
-			<p>
-				<label class="carlabel" for="input">Car Id:</label>
-				<input type="text" name="car_id" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Brand:</label>
-				<input type="text" name="car_brand" /></li>
-			</p>
-			<p>
-				<label class="carlabel" for="input">Car Model:</label>
-				<input type="text" name="car_model" /></li>
-			</p>
-			<p>
-				<input type="submit" name="submit" /> 
-			</p>
-		</fieldset>
+	<span class="d-block p-2 bg-primary text-white">User Profile</span>
 
-	</form>
 
-  <?php 
-  $db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
-  if (isset($_POST['submit'])) {
-        $result = pg_query($db, "INSERT INTO car VALUES('$_POST[car_id]', '$_POST[car_brand]', '$_POST[car_model]',   '$user_id')");
-        if (!$result) {
-            echo "Update failed!!";
-        } else {
-            echo "Update successful!";
-        }
-    }
 
-  ?>
+	<?php 
+	$db = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres");
 
-	<button onclick="location.href='carprofile.php'">Go Back</button>
-		
-	</div>
+	$result = pg_query($db, "SELECT * FROM appuser WHERE phone_number = $user_id;  ");
 
-	
+	$row = pg_fetch_assoc($result);
+
+	if (!$row){
+		echo "Error! No such user! \n";
+	}else{
+    echo "<div class='container'>
+          <form>
+          <fieldset>
+          <legend>This is your infromation:</legend>
+          <p>Phone Number: ".$row["phone_number"]."</p><br>
+          <p>First Name: ".$row["first_name"]."</p><br>
+          <p>Last Name: ".$row["last_name"]."</p>
+          </fieldset>
+        </form>";
+
+    echo "<form action='updateprofile.php'><input type='submit' value='Update Profile' /></form>";
+    echo "</div>";
+	}
+
+?>
 
 </body>
 </html>

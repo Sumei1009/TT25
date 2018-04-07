@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 ?>
 <!DOCTYPE html>  
 <head>
-  <title>Index</title>
+  <title>Home</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -28,11 +28,7 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link active" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
-            <a class="nav-link" href="index.php">My Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">My Car</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
           </li>
         <li class="nav-item">
           <a class="nav-link" href="viewmyrides.php">My Rides</a>
@@ -44,10 +40,10 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
@@ -56,7 +52,11 @@ if (isset($_SESSION["user_id"])) {
     </div>
   </nav>
   <?php
+<<<<<<< HEAD
     $db     = pg_connect("host=localhost port=5432 dbname=project1 user=wthanw password=qchenxm"); 
+=======
+    $db     = pg_connect("host=localhost port=5432 dbname=Team25 user=postgres password=postgres"); 
+>>>>>>> 4c8af9f45216574fe40731bd548ee9056d90b331
     //$result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = '" .$user_id. "';");
     $result = pg_query($db, "SELECT first_name, last_name FROM appuser WHERE phone_number = ' " .$user_id. "';");  
     
@@ -75,7 +75,7 @@ if (isset($_SESSION["user_id"])) {
   <span class="d-block p-2 bg-primary text-white">Recent Rides</span>
   <?php
     // Recently generated rides by drivers
-    $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate ORDER BY date_of_generation LIMIT 5;");   // Query template
+    $result = pg_query($db, "SELECT date_of_ride, time_of_ride, origin, destination FROM ride_generate ORDER BY date_of_generation desc LIMIT 5;");   // Query template
     if (pg_num_rows($result)!=0){
     // output data of each row
       echo "<table class='table'><thead><tr>

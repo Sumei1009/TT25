@@ -10,7 +10,7 @@ if (isset($_SESSION["user_id"])) {
 
 <!DOCTYPE html>
 <head>
-  <title>Index</title>
+  <title>Car Profile</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/style.css">
@@ -26,10 +26,13 @@ if (isset($_SESSION["user_id"])) {
     <div class="collapse navbar-collapse" id="navbarToggler">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="index.php">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="activerides.php">Active Rides</a>
+            <a class="nav-link" href="myprofile.php">My Profile</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="viewmyrides.php">My Rides</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="currentbids.php">Current Bids</a>
@@ -38,22 +41,17 @@ if (isset($_SESSION["user_id"])) {
           <a class="nav-link" href="generaterides.php">Generate Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
+          <a class="nav-link" href="searchride.php">Search Rides</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="searchrides.php">Search Rides</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="carprofile.php">Car Information</a>          
+          <a class="nav-link active" href="carprofile.php">Car Profile</a>          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="signin.php">Logout</a>
         </li>
       </ul>
     </div>
-    </nav>
-
-
+  </nav>
 
 	<span class="d-block p-2 bg-primary text-white">Car Profile</span>
 
@@ -71,29 +69,19 @@ if (isset($_SESSION["user_id"])) {
 		echo "<button onclick=\"location.href='regiscar.php'\">Register a car</button>";
 
 	}else{
-    echo "<div class=\"container\">  <p> This is your car infromation: </p> </div>";
-		echo $row["car_id"];
-		echo $row["car_brand"]; 
-		echo $row["car_model"];
-
-
-		
-
-
+    echo "<div class='container'>
+          <form>
+          <fieldset>
+          <legend>This is your car infromation:</legend>
+          <p>Car ID: ".$row["car_id"]."</p><br>
+          <p>Brand: ".$row["car_brand"]."</p><br>
+          <p>Model: ".$row["car_model"]."</p>
+          </fieldset>
+        </form>";
+    echo "<form action='updatecar.php'><input type='submit' value='Update Information' /></form>";
+    echo "</div>";
 	}
-
-	?>
-
-
-
-
-
-
-
-	
-
-
-
+?>
 
 </body>
 </html>
